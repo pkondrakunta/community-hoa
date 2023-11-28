@@ -49,7 +49,7 @@ public class HomeController {
 		return "search-member";
 	}
 
-	@PostMapping("/search-member")
+	@PostMapping("/search-mem")
 	public String searchMember(@ModelAttribute("member-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
 		List<Member> searchMemberResults = memberService.searchMembers(search_text);
