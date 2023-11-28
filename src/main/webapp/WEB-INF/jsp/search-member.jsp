@@ -1,3 +1,8 @@
+<%-- 
+- Author(s): Pragnya Kondrakunta 
+- Date: Nov, 2023
+- Description: Search Member Page View to provide form that looks for members with matching criteria -- %>
+
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
 

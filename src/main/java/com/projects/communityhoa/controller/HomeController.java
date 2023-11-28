@@ -1,17 +1,20 @@
+/**
+ * Main controller for the Community HOA application. Maps and 
+ * manages different actions 
+ * 
+ * @author Pragnya Kondrakunta
+ */
+
 package com.projects.communityhoa.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.projects.communityhoa.model.Invoice;
 import com.projects.communityhoa.model.Member;

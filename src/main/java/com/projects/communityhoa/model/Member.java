@@ -1,6 +1,6 @@
 /**
  *
- * @author Pragnya
+ * @author Pragnya Kondrakunta
  */
 
 package com.projects.communityhoa.model;

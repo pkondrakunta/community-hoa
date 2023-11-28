@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Pragnya Kondrakunta
+ */
+
 package com.projects.communityhoa.model;
 
 import java.util.Date;
