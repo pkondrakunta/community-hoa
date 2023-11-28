@@ -3,7 +3,6 @@
 
 <!doctype HTML>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,7 +17,7 @@
 
 <body class="container justify-content-center">
 
-    <nav class="navbar fixed-top navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom border-body" style="background-color: #4776E6;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -33,9 +32,9 @@
                             Members
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Search Members</a></li>
-                            <li><a class="dropdown-item" href="#">All Members</a></li>
-                            <li><a class="dropdown-item" href="#">Add Member</a></li>
+                            <li><a class="dropdown-item" href="/search-member">Search Members</a></li>
+                            <li><a class="dropdown-item" href="/members">All Members</a></li>
+                            <li><a class="dropdown-item" href="/addMember">Add Member</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -58,8 +57,9 @@
     <div class="container text-center">
         <h3>Community HOA</h3>
         <br /><br />
-        <form name="searchMember" class="d-flex justify-content-center" role="searchMember">
-            <input class="form-control w-25 me-2" type="search" placeholder="Search Member" aria-label="Search">
+
+        <form modelAttribute="invoice-text" name="searchInvoice" class="d-flex justify-content-center" role="searchInvoice">
+            <input class="form-control w-25 me-2" type="search" placeholder="Search Invoice" aria-label="Search">
             <button class="btn btn-outline-secondary" type="submit">Search</button>
         </form>
 

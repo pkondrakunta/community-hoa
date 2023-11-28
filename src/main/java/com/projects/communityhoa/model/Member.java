@@ -17,8 +17,6 @@ public class Member {
 	Boolean yearly;
 	Date subscriptionExpiry;
 	Date lastPaid;
-	Float securityDeposit;
-
 	
 	public String getMemberID() {
 		return memberID;
@@ -74,13 +72,7 @@ public class Member {
 	public void setLastPaid(Date lastPaid) {
 		this.lastPaid = lastPaid;
 	}
-	public Float getSecurityDeposit() {
-		return securityDeposit;
-	}
-	public void setSecurityDeposit(Float securityDeposit) {
-		this.securityDeposit = securityDeposit;
-	}
-	
+
 }
 
 

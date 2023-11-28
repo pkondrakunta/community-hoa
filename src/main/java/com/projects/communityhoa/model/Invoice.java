@@ -10,7 +10,6 @@ public class Invoice {
 	Float trashFee;
 	Float adminFee;
 	Float lateFee;
-	Float otherFee;
 	
 	public String getInvoiceID() {
 		return invoiceID;
@@ -42,26 +41,12 @@ public class Invoice {
 	public void setTrashFee(Float trashFee) {
 		this.trashFee = trashFee;
 	}
-	public Float getAdminFee() {
-		return adminFee;
-	}
-	public void setAdminFee(Float adminFee) {
-		this.adminFee = adminFee;
-	}
 	public Float getLateFee() {
 		return lateFee;
 	}
 	public void setLateFee(Float lateFee) {
 		this.lateFee = lateFee;
 	}
-	public Float getOtherFee() {
-		return otherFee;
-	}
-	public void setOtherFee(Float otherFee) {
-		this.otherFee = otherFee;
-	}
-	
-	
 
 
 }
