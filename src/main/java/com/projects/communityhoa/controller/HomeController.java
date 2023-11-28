@@ -20,13 +20,18 @@ import com.projects.communityhoa.model.Invoice;
 import com.projects.communityhoa.model.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
-import com.projects.communityhoa.service.SearchService;
+
+import com.projects.communityhoa.service.InvoiceService;
+import com.projects.communityhoa.service.MemberService;
 
 @Controller
 public class HomeController {
 
 	@Autowired
-	SearchService searchService;
+	MemberService memberService;
+	
+	@Autowired
+	InvoiceService invoiceService;
 
 	@GetMapping("/login")
 	public String handleLogin() {
@@ -47,7 +52,7 @@ public class HomeController {
 	@PostMapping("/search-member")
 	public String searchMember(@ModelAttribute("member-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
-		List<Member> searchMemberResults = searchService.searchMember(search_text);
+		List<Member> searchMemberResults = memberService.searchMembers(search_text);
 
 		if (searchMemberResults.isEmpty()) {
 			return ("no-matches-members");
@@ -64,7 +69,7 @@ public class HomeController {
 	@PostMapping("/search-invoice")
 	public String searchInvoice(@ModelAttribute("invoice-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
-		List<Invoice> searchInvoiceResults = searchService.searchInvoice(search_text);
+		List<Invoice> searchInvoiceResults = invoiceService.searchInvoices(search_text);
 
 		if (searchInvoiceResults.isEmpty()) {
 			return ("no-matches-invoices");
