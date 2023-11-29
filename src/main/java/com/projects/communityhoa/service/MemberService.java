@@ -15,8 +15,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Component;
+
 import com.projects.communityhoa.model.Member;
 
+@Component
 public class MemberService {
 
 	Connection conn;

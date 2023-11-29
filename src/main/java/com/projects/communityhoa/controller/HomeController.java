@@ -26,12 +26,12 @@ import com.projects.communityhoa.service.MemberService;
 
 @Controller
 public class HomeController {
-
-	@Autowired
-	MemberService memberService;
 	
 	@Autowired
 	InvoiceService invoiceService;
+	
+	@Autowired
+	MemberService memberService;
 
 	@GetMapping("/login")
 	public String handleLogin() {
