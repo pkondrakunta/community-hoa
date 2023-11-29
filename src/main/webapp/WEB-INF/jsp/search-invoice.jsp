@@ -1,7 +1,8 @@
-<%-- 
+<!-- 
 - Author(s): Pragnya Kondrakunta 
 - Date: Nov, 2023
-- Description: Search Invoice Page View to provide form that looks for invoices with matching criteria -- %>
+- Description: Search Invoice Page View to provide form that looks for invoices with matching criteria  -->
+
 
     <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
