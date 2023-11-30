@@ -54,9 +54,9 @@
                             Members
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/search-member">Search Members</a></li>
+                            <li><a class="dropdown-item" href="/searchMember">Search Members</a></li>
                             <li><a class="dropdown-item" href="/members">All Members</a></li>
-                            <li><a class="dropdown-item" href="/add-member">Add Member</a></li>
+                            <li><a class="dropdown-item" href="/addMember">Add Member</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -65,8 +65,8 @@
                             Invoices
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Search Invoices</a></li>
-                            <li><a class="dropdown-item" href="#">All Invoices</a></li>
+                            <li><a class="dropdown-item" href="/searchInvoice">Search Invoices</a></li>
+                            <li><a class="dropdown-item" href="/invoices">All Invoices</a></li>
                         </ul>
                     </li>
                 </ul>
