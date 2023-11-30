@@ -13,7 +13,7 @@ public class Member {
 	String lastName;
 	String unit;
 	String unitType;
-	Integer phone;
+	String phone;
 	Boolean yearly;
 	Date subscriptionExpiry;
 	Date lastPaid;
@@ -48,10 +48,10 @@ public class Member {
 	public void setUnitType(String unitType) {
 		this.unitType = unitType;
 	}
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public Boolean getYearly() {

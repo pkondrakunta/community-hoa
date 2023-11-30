@@ -66,7 +66,44 @@ public class MemberService {
 				 memObj.setLastName(resultSet.getString("last_name"));
 				 memObj.setUnit(resultSet.getString("unit"));
 				 memObj.setUnitType(resultSet.getString("unit_type"));
-				 memObj.setPhone(resultSet.getInt("phone"));
+				 memObj.setPhone(resultSet.getString("phone"));
+				 memObj.setYearly(resultSet.getBoolean("yearly"));
+				 memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
+				 memObj.setLastPaid(resultSet.getDate("last_paid"));
+
+				 memberList.add(memObj);
+			}
+
+			return memberList;
+
+		} catch (SQLException ex) {
+			Logger.getLogger(MemberService.class.getName()).log(Level.SEVERE, null, ex);
+			return new ArrayList<Member>();
+		}
+	}
+	
+	public List<Member> getAllMembers() {
+
+		try {
+			String query = "SELECT * FROM members";
+			PreparedStatement statement = conn.prepareStatement(query);
+
+
+			ResultSet resultSet = statement.executeQuery(query);
+
+			// Loop through the ResultSet
+			List<Member> memberList = new ArrayList<Member>();
+
+			while (resultSet.next()) {
+
+				 Member memObj = new Member();
+
+				 memObj.setMemberID(resultSet.getString("member_id"));
+				 memObj.setFirstName(resultSet.getString("first_name"));
+				 memObj.setLastName(resultSet.getString("last_name"));
+				 memObj.setUnit(resultSet.getString("unit"));
+				 memObj.setUnitType(resultSet.getString("unit_type"));
+				 memObj.setPhone(resultSet.getString("phone"));
 				 memObj.setYearly(resultSet.getBoolean("yearly"));
 				 memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
 				 memObj.setLastPaid(resultSet.getDate("last_paid"));

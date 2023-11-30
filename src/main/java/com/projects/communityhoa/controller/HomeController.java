@@ -40,7 +40,10 @@ public class HomeController {
 	}
 
 	@GetMapping("/members")
-	public String handleGetMembers() {
+	public String handleGetMembers(HttpServletRequest request) {
+		List<Member> allMembersList = memberService.getAllMembers();
+        request.setAttribute("memberList", allMembersList);
+		
 		return "members";
 	}
 
@@ -93,5 +96,6 @@ public class HomeController {
 	public String showMemberView() {
 		return "memberView";
 	}
+	
 
 }
