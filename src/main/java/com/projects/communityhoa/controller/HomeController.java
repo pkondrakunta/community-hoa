@@ -88,5 +88,10 @@ public class HomeController {
 	public String showAddMemberForm() {
 		return "addMember";
 	}
+	
+	@GetMapping("/*/memberView")
+	public String showMemberView() {
+		return "memberView";
+	}
 
 }
