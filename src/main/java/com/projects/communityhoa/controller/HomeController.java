@@ -83,5 +83,10 @@ public class HomeController {
 		}
 
 	}
+	
+	@GetMapping("/addMember")
+	public String showAddMemberForm() {
+		return "addMember";
+	}
 
 }
