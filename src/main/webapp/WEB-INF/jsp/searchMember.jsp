@@ -18,12 +18,28 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
+    <style>
+        .btn-theme {
+            background-color: #fff;
+            border-color: #4776E6;
+            color: #4776E6;
+
+        }
+
+        .btn-theme:hover {
+            transition-duration: 0.1s;
+            border-color: #fff;
+            color: #fff;
+            background-image: linear-gradient(to right, #4776E6, #8E54E9);
+
+        }
+    </style>
 
 </head>
 
 <body class="container justify-content-center">
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom border-body" style="background-color: #4776E6;">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom border-body">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -65,7 +81,7 @@
         <br /><br />
         <form modelAttribute="member-text" name="searchMember" class="d-flex justify-content-center" role="searchMember">
             <input class="form-control w-25 me-2" type="search" placeholder="Search Member" aria-label="Search">
-            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <button class="btn btn-theme" type="submit">Search</button>
         </form>
         <div id="search-results">
 

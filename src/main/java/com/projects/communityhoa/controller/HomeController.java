@@ -44,37 +44,42 @@ public class HomeController {
 		return "members";
 	}
 
-	@GetMapping("/search-member")
+	@GetMapping("/searchMember")
 	public String showSearchMemberForm() {
-		return "search-member";
+		return "searchMember";
 	}
 
-	@PostMapping("/search-member")
+	@PostMapping("/searchMember")
 	public String searchMember(@ModelAttribute("member-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
 		List<Member> searchMemberResults = memberService.searchMembers(search_text);
 
 		if (searchMemberResults.isEmpty()) {
-			return ("no-matches-members");
+			return ("noMatchingMembers");
 		} else {
-			return ("search-results-members");
+			return ("searchMemberResults");
 		}
 	}
 
-	@GetMapping("/search-invoice")
+	@GetMapping("/searchInvoice")
 	public String showSearchInvoiceForm() {
-		return "search-invoice";
+		return "searchInvoice";
+	}
+	
+	@GetMapping("/invoices")
+	public String handleGetInvoices() {
+		return "invoices";
 	}
 
-	@PostMapping("/search-invoice")
+	@PostMapping("/searchInvoice")
 	public String searchInvoice(@ModelAttribute("invoice-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
 		List<Invoice> searchInvoiceResults = invoiceService.searchInvoices(search_text);
 
 		if (searchInvoiceResults.isEmpty()) {
-			return ("no-matches-invoices");
+			return ("noMatchingInvoices");
 		} else {
-			return ("search-results-invoices");
+			return ("searchInvoiceResults");
 		}
 
 	}
