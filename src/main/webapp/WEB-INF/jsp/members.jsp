@@ -92,9 +92,9 @@
             <th>Unit Type</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Yearly Plan</th>
-            <th>Subscription expires on</th>
-            <th>Last Payment On</th>
+            <th>Subscription Plan</th>
+            <th>Plan Expires on</th>
+            <th>Last Payment on</th>
             <th>View</th>
 
           </tr>
@@ -110,7 +110,7 @@
                 <td>${mem.unitType}</td>
                 <td>${mem.email}</td>
                 <td>${mem.phone}</td>
-                <td>${mem.yearly}</td>
+                <td>${mem.subscriptionPlan}</td>
                 <td>${mem.subscriptionExpiry}</td>
                 <td>${mem.lastPaid}</td>
                 <td><a href="/member/${mem.memberID}" class="btn btn-sm btn-theme">View</a></td>

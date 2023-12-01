@@ -82,29 +82,29 @@
 
     </div>
 
-    <form>
+    <form method="POST" action="/addMember">
       <div class="form-group row">
         <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputFirstName" placeholder="Viola">
+          <input type="text" class="form-control" name="inputFirstName" placeholder="Viola">
         </div>
       </div>  <br/>
       <div class="form-group row">
         <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputLastName" placeholder="Davis">
+          <input type="text" class="form-control" name="inputLastName" placeholder="Davis">
         </div>
       </div>  <br/>
         <div class="form-group row">
           <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail" placeholder="viola.davis@gmail.com">
+            <input type="email" class="form-control" name="inputEmail" placeholder="viola.davis@gmail.com">
           </div>
         </div>  <br/>
         <div class="form-group row">
           <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputPhone" placeholder="6173733499">
+            <input type="text" class="form-control" name="inputPhone" placeholder="6173733499">
           </div>
         </div>  <br/>
         <!-- <div class="form-group row">
@@ -124,14 +124,14 @@
         <div class="form-group row">
           <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main Street">
+            <input type="text" class="form-control" name="inputAddress" placeholder="1234 Main Street">
           </div>
         </div>  <br/>
 
         <div class="form-group row">
           <label for="inputUnit" class="col-sm-2 col-form-label">Unit</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputUnit" placeholder="1A">
+            <input type="text" class="form-control" name="inputUnit" placeholder="1A">
           </div>
         </div>  <br/>
         <fieldset class="form-group">
@@ -171,13 +171,13 @@
             <legend class="col-form-label col-sm-2 pt-0">Subscription Plan</legend>
             <div class="col-sm-10">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="inputYearly" id="gridRadios1" value="true" checked>
+                <input class="form-check-input" type="radio" name="inputSubscriptionPlan" id="gridRadios1" value="Annually" checked>
                 <label class="form-check-label" for="gridRadios1">
                   Annually 
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="inputYearly" id="gridRadios2" value="false">
+                <input class="form-check-input" type="radio" name="inputSubscriptionPlan" id="gridRadios2" value="Monthly">
                 <label class="form-check-label" for="gridRadios2">
                   Monthly
                 </label>
@@ -200,7 +200,7 @@
 
         <div class="form-group row">
           <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Add Member</button>
+            <button type="submit" class="btn btn-theme">Add Member</button>
           </div>
         </div>
       </form>

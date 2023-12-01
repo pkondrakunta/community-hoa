@@ -5,7 +5,7 @@
 
 package com.projects.communityhoa.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Member {
 	String memberID;
@@ -16,9 +16,9 @@ public class Member {
 	String address;
 	String email;
 	String phone;
-	Boolean yearly;
-	Date subscriptionExpiry;
-	Date lastPaid;
+	String subscriptionPlan;
+	LocalDateTime subscriptionExpiry;
+	LocalDateTime lastPaid;
 	
 	public String getMemberID() {
 		return memberID;
@@ -56,22 +56,23 @@ public class Member {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Boolean getYearly() {
-		return yearly;
+
+	public String getSubscriptionPlan() {
+		return subscriptionPlan;
 	}
-	public void setYearly(Boolean yearly) {
-		this.yearly = yearly;
+	public void setSubscriptionPlan(String subscriptionPlan) {
+		this.subscriptionPlan = subscriptionPlan;
 	}
-	public Date getSubscriptionExpiry() {
+	public LocalDateTime getSubscriptionExpiry() {
 		return subscriptionExpiry;
 	}
-	public void setSubscriptionExpiry(Date subscriptionExpiry) {
+	public void setSubscriptionExpiry(LocalDateTime subscriptionExpiry) {
 		this.subscriptionExpiry = subscriptionExpiry;
 	}
-	public Date getLastPaid() {
+	public LocalDateTime getLastPaid() {
 		return lastPaid;
 	}
-	public void setLastPaid(Date lastPaid) {
+	public void setLastPaid(LocalDateTime lastPaid) {
 		this.lastPaid = lastPaid;
 	}
 	public String getAddress() {

@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,10 +41,21 @@ public class MemberService {
 
 	}
 
-	public boolean addMember(Member member) {
+	public Member addMember(Member member) {
+		
+		Member addedMember = member;
+		String plan = member.getSubscriptionPlan();
+		addedMember.setMemberID(null);
+		addedMember.setLastPaid(LocalDateTime.now());
+		
+		if (plan == "Annually"){
+			addedMember.setSubscriptionExpiry(LocalDateTime.now().plusYears(1));
+		}
+		else {
+			addedMember.setSubscriptionExpiry(LocalDateTime.now().plusMonths(1));
+		}
 
-		// Validate model and add member
-		return true;
+		return addedMember;
 	}
 
 	public List<Member> searchMembers(String search_text) {
@@ -69,9 +82,9 @@ public class MemberService {
 				memObj.setUnit(resultSet.getString("unit"));
 				memObj.setUnitType(resultSet.getString("unit_type"));
 				memObj.setPhone(resultSet.getString("phone"));
-				memObj.setYearly(resultSet.getBoolean("yearly"));
-				memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
-				memObj.setLastPaid(resultSet.getDate("last_paid"));
+				memObj.setSubscriptionPlan(resultSet.getString("subscription_plan"));
+				memObj.setSubscriptionExpiry(resultSet.getTimestamp("subscription_expiry").toLocalDateTime());
+				memObj.setLastPaid(resultSet.getTimestamp("last_paid").toLocalDateTime());
 				memObj.setEmail(resultSet.getString("email"));
 				memObj.setAddress(resultSet.getString("address"));
 
@@ -107,9 +120,9 @@ public class MemberService {
 				memObj.setUnit(resultSet.getString("unit"));
 				memObj.setUnitType(resultSet.getString("unit_type"));
 				memObj.setPhone(resultSet.getString("phone"));
-				memObj.setYearly(resultSet.getBoolean("yearly"));
-				memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
-				memObj.setLastPaid(resultSet.getDate("last_paid"));
+				memObj.setSubscriptionPlan(resultSet.getString("subscription_plan"));
+				memObj.setSubscriptionExpiry(resultSet.getTimestamp("subscription_expiry").toLocalDateTime());
+				memObj.setLastPaid(resultSet.getTimestamp("last_paid").toLocalDateTime());
 				memObj.setEmail(resultSet.getString("email"));
 				memObj.setAddress(resultSet.getString("address"));
 				
@@ -133,12 +146,8 @@ public class MemberService {
 			statement.setString(1, ID);
 
 			ResultSet resultSet = statement.executeQuery();
-
-//			// Loop through the ResultSet
-//			List<Member> memberList = new ArrayList<Member>();
 			
 			Member memObj = new Member();
-
 
 			if (resultSet.next()) {
 
@@ -148,18 +157,16 @@ public class MemberService {
 				memObj.setUnit(resultSet.getString("unit"));
 				memObj.setUnitType(resultSet.getString("unit_type"));
 				memObj.setPhone(resultSet.getString("phone"));
-				memObj.setYearly(resultSet.getBoolean("yearly"));
-				memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
-				memObj.setLastPaid(resultSet.getDate("last_paid"));
+				memObj.setSubscriptionPlan(resultSet.getString("subscription_plan"));
+				memObj.setSubscriptionExpiry(resultSet.getTimestamp("subscription_expiry").toLocalDateTime());
+				memObj.setLastPaid(resultSet.getTimestamp("last_paid").toLocalDateTime());
 				memObj.setEmail(resultSet.getString("email"));
 				memObj.setAddress(resultSet.getString("address"));
 				
 			}
 			
-
 			return memObj;
 
-			
 
 		} catch (SQLException ex) {
 			Logger.getLogger(MemberService.class.getName()).log(Level.SEVERE, null, ex);
