@@ -5,6 +5,7 @@
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype HTML>
 <html>
@@ -88,12 +89,14 @@
                     <div class="card bg-light mb-6">
                         <div class="card-header">Member Details</div>
                         <div class="card-body">
-                            <h5 class="card-title">First Name Last Name</h5>
+                            <h5 class="card-title">
+                            
+                            ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
                             <p class="card-text">
-                                member ID <br />
-                                unit <br />
-                                unitType <br />
-                                phone<br />
+                                Member ID: ${requestScope.member.memberID}<br />
+                                Unit: ${requestScope.member.unit}<br />
+                                Unit Type: ${requestScope.member.unitType}<br />
+                                Phone: ${requestScope.member.phone}<br />
                             </p>
                         </div>
                     </div>
@@ -106,11 +109,23 @@
                     <div class="card bg-light mb-6">
                         <div class="card-header">Subscription Details</div>
                         <div class="card-body">
-                            <h5 class="card-title">Monthly/Yearly Plan</h5>
+                            <h5 class="card-title">
+                            <c:choose>
+                                <c:when test="${requestScope.member.yearly=='true'}">
+                                    Yearly Plan
+                                    <br />
+                                </c:when>    
+                                <c:otherwise>
+                                    Monthly Plan
+                                    <br />
+                                </c:otherwise>
+                            </c:choose>
+                            </h5>
                             <p class="card-text">
-                                yearly <br />
-                                subscriptionExpiry <br />
-                                lastPaid <br />
+                                Member ID: ${requestScope.member.memberID} <br />
+                                Subscription expires on <fmt:formatDate value="${requestScope.member.subscriptionExpiry}" pattern="MMM dd, YYYY" /><br />
+                                Last paid on <fmt:formatDate value="${requestScope.member.lastPaid}" pattern="MMM dd, YYYY" /> <br />
+                                <br/>
                             </p>
                         </div>
                     </div>

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -92,9 +93,14 @@ public class HomeController {
 		return "addMember";
 	}
 	
-	@GetMapping("/*/memberView")
-	public String showMemberView() {
-		return "memberView";
+	@GetMapping("/memberView/{memberId}")
+	public String showMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+//		String ID = request.getParameter("memberID");
+		Member member = memberService.getMemberfromID(memberId);		
+		
+        request.setAttribute("member", member);
+
+        return "memberView";
 	}
 	
 

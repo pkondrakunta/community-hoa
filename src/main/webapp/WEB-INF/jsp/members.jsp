@@ -109,7 +109,7 @@
                 <td>${mem.yearly}</td>
                 <td>${mem.subscriptionExpiry}</td>
                 <td>${mem.lastPaid}</td>
-                <td><a href="/${mem.memberID}/memberView" class="btn btn-sm btn-theme">View</a></td>
+                <td><a href="/memberView/${mem.memberID}" class="btn btn-sm btn-theme">View</a></td>
             </tr>
         </c:forEach>
       
