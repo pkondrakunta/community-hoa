@@ -93,14 +93,11 @@ public class HomeController {
 		return "addMember";
 	}
 	
-	@GetMapping("/memberView/{memberId}")
+	@GetMapping("/member/{memberId}")
 	public String showMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
-//		String ID = request.getParameter("memberID");
-		Member member = memberService.getMemberfromID(memberId);		
-		
+		Member member = memberService.getMemberfromID(memberId);				
         request.setAttribute("member", member);
-
-        return "memberView";
+        return "member";
 	}
 	
 

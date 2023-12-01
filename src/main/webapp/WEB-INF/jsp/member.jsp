@@ -130,7 +130,7 @@
                         </div>
                     </div>
                     <br />
-                    <a href="" class="btn btn-theme">Generate Bill</a>
+                    <a href="" class="btn btn-theme">Pay</a>
 
                 </div>
             </div>
