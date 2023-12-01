@@ -94,8 +94,10 @@
                             ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
                             <p class="card-text">
                                 Member ID: ${requestScope.member.memberID}<br />
+                                Address: ${requestScope.member.address}<br />
                                 Unit: ${requestScope.member.unit}<br />
                                 Unit Type: ${requestScope.member.unitType}<br />
+                                Email: ${requestScope.member.email}<br />
                                 Phone: ${requestScope.member.phone}<br />
                             </p>
                         </div>

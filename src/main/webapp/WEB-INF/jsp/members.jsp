@@ -87,8 +87,10 @@
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Address</th>
             <th>Unit</th>
             <th>Unit Type</th>
+            <th>Email</th>
             <th>Phone</th>
             <th>Yearly Plan</th>
             <th>Subscription expires on</th>
@@ -103,8 +105,10 @@
                 <td>${mem.memberID}</td>
                 <td>${mem.firstName}</td>
                 <td>${mem.lastName}</td>
+                <td>${mem.address}</td>
                 <td>${mem.unit}</td>
                 <td>${mem.unitType}</td>
+                <td>${mem.email}</td>
                 <td>${mem.phone}</td>
                 <td>${mem.yearly}</td>
                 <td>${mem.subscriptionExpiry}</td>

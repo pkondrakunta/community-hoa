@@ -72,6 +72,8 @@ public class MemberService {
 				memObj.setYearly(resultSet.getBoolean("yearly"));
 				memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
 				memObj.setLastPaid(resultSet.getDate("last_paid"));
+				memObj.setEmail(resultSet.getString("email"));
+				memObj.setAddress(resultSet.getString("address"));
 
 				memberList.add(memObj);
 			}
@@ -108,7 +110,9 @@ public class MemberService {
 				memObj.setYearly(resultSet.getBoolean("yearly"));
 				memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
 				memObj.setLastPaid(resultSet.getDate("last_paid"));
-
+				memObj.setEmail(resultSet.getString("email"));
+				memObj.setAddress(resultSet.getString("address"));
+				
 				memberList.add(memObj);
 			}
 
@@ -147,6 +151,8 @@ public class MemberService {
 				memObj.setYearly(resultSet.getBoolean("yearly"));
 				memObj.setSubscriptionExpiry(resultSet.getDate("subscription_expiry"));
 				memObj.setLastPaid(resultSet.getDate("last_paid"));
+				memObj.setEmail(resultSet.getString("email"));
+				memObj.setAddress(resultSet.getString("address"));
 				
 			}
 			
