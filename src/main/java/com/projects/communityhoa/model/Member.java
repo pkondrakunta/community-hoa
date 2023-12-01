@@ -13,6 +13,8 @@ public class Member {
 	String lastName;
 	String unit;
 	String unitType;
+	String address;
+	String email;
 	String phone;
 	Boolean yearly;
 	Date subscriptionExpiry;
@@ -71,6 +73,18 @@ public class Member {
 	}
 	public void setLastPaid(Date lastPaid) {
 		this.lastPaid = lastPaid;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
