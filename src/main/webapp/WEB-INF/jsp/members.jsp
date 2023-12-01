@@ -5,6 +5,7 @@
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype HTML>
 <html>
@@ -93,8 +94,6 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Subscription Plan</th>
-            <th>Plan Expires on</th>
-            <th>Last Payment on</th>
             <th>View</th>
 
           </tr>
@@ -111,8 +110,6 @@
                 <td>${mem.email}</td>
                 <td>${mem.phone}</td>
                 <td>${mem.subscriptionPlan}</td>
-                <td>${mem.subscriptionExpiry}</td>
-                <td>${mem.lastPaid}</td>
                 <td><a href="/member/${mem.memberID}" class="btn btn-sm btn-theme">View</a></td>
             </tr>
         </c:forEach>
