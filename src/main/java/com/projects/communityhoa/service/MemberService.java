@@ -58,16 +58,19 @@ public class MemberService {
 		return addedMember;
 	}
 
-	public List<Member> searchMembers(String search_text) {
+	public List<Member> searchMembers(String search_text_with_wildcard) {
 
 		try {
-			String query = "SELECT * FROM members WHERE '%?%' IN member_id";
+			String query = "SELECT * FROM members WHERE member_id LIKE ? OR first_name LIKE ? OR last_name LIKE ?";
 			PreparedStatement statement = conn.prepareStatement(query);
+			
+//			System.out.println(search_text_with_wildcard);
+			statement.setString(1, search_text_with_wildcard);
+			statement.setString(2, search_text_with_wildcard);
+			statement.setString(3, search_text_with_wildcard);
 
-			statement.setString(1, search_text);
-			statement.setString(2, search_text);
 
-			ResultSet resultSet = statement.executeQuery(query);
+			ResultSet resultSet = statement.executeQuery();
 
 			// Loop through the ResultSet
 			List<Member> memberList = new ArrayList<Member>();

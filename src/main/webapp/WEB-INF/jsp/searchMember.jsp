@@ -79,23 +79,23 @@
     <div class="container text-center">
         <h3>Community HOA</h3>
         <br /><br />
-        <form modelAttribute="member-text" name="searchMember" class="d-flex justify-content-center" role="searchMember">
-            <input class="form-control w-25 me-2" type="search" placeholder="Search Member" aria-label="Search">
+        <form method="POST" name="searchMember" class="d-flex justify-content-center" role="searchMember">
+            <input  name="member-search-text" class="form-control w-25 me-2" type="search" placeholder="Search Member" aria-label="Search">
             <button class="btn btn-theme" type="submit">Search</button>
         </form>
 
-        <%-- When no matching done yet --%>
-        <c:if test="${requestScope.resultsOutcome = "null"}">  
 
-        </c:if>  
+        <%-- <p>${requestScope.resultsOutcome}</p> --%>
 
-        <%-- For no matches --%>
-        <c:if test="${requestScope.resultsOutcome = "false"}">  
-            <p>No matching member found.<p>  
-        </c:if>  
 
-        <%-- For matching members found. --%>
-        <c:if test="${requestScope.resultsOutcome = "true"}">  
+        <c:choose>
+        <c:when test="${requestScope.resultsOutcome == 'false'}">
+            <br/><h4>Search results for: ${requestScope.sText}</h4>
+            <br/><p>No matching member found.<p>  
+        </c:when>
+        <c:when test="${requestScope.resultsOutcome == 'true'}">
+            <br/><h4>Search results for: ${requestScope.sText}</h4>
+            <br/>
             <table class="table table-striped">
                 <thead class="table-dark">
                 <tr>
@@ -128,9 +128,60 @@
                     </tr>
                 </c:forEach>
             </table>
-        </c:if>  
+        </c:when>
+        <c:otherwise>
+            <br/>
+        </c:otherwise>
+        </c:choose>
 
-    </div>/
+
+        <%-- When no matching done yet --%>
+        <%-- <c:if test="${requestScope.resultsOutcome == 'null'}">  
+        <p></p>
+        </c:if>   --%>
+
+        <%-- For no matches --%>
+        <%-- <c:if test="${requestScope.resultsOutcome == 'false'}">  
+            <p>No matching member found.<p>  
+        </c:if>   --%>
+
+        <%-- For matching members found. --%>
+        <%-- <c:if test="${requestScope.resultsOutcome == 'true'}">  
+            <table class="table table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Unit</th>
+                    <th>Unit Type</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Subscription Plan</th>
+                    <th>View</th>
+
+                </tr>
+                </thead>
+                
+                <c:forEach items="${requestScope.memberResultList}" var="mem">
+                    <tr>
+                        <td>${mem.memberID}</td>
+                        <td>${mem.firstName}</td>
+                        <td>${mem.lastName}</td>
+                        <td>${mem.address}</td>
+                        <td>${mem.unit}</td>
+                        <td>${mem.unitType}</td>
+                        <td>${mem.email}</td>
+                        <td>${mem.phone}</td>
+                        <td>${mem.subscriptionPlan}</td>
+                        <td><a href="/member/${mem.memberID}" class="btn btn-sm btn-theme">View</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>   --%>
+
+    </div>
 
 
 </body>

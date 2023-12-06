@@ -61,17 +61,20 @@ public class HomeController {
 	}
 
 	@PostMapping("/searchMember")
-	public String searchMember(@ModelAttribute("member-text") String search_text, SessionStatus status,
-			HttpServletRequest request) {
-		List<Member> searchMemberResults = memberService.searchMembers(search_text);
-		request.setAttribute("memberResultList", searchMemberResults);
+	public String searchMember(@RequestParam(name = "member-search-text") @NonNull String search_text,
+			SessionStatus status, HttpServletRequest request) {
+		String search_with_wildcard = "%".concat(search_text).concat("%");
+		request.setAttribute("sText", search_text);
+
+		List<Member> searchMemberResults = memberService.searchMembers(search_with_wildcard);
 
 		if (searchMemberResults.isEmpty()) {
 			request.setAttribute("resultsOutcome", "false");
 		} else {
 			request.setAttribute("resultsOutcome", "true");
+			request.setAttribute("memberResultList", searchMemberResults);
 		}
-		
+
 		return "searchMember";
 
 	}
@@ -115,8 +118,9 @@ public class HomeController {
 			@RequestParam(name = "inputUnitType") @NonNull String unitType,
 			@RequestParam(name = "inputSubscriptionPlan") @NonNull String subscriptionPlan) {
 
-		// Have to set memberID, last paid, expiry in service - until next cycle (+1 year for annual or +1 month for monthly)
-		
+		// Have to set memberID, last paid, expiry in service - until next cycle (+1
+		// year for annual or +1 month for monthly)
+
 		Member memObj = new Member();
 
 		memObj.setFirstName(firstName);
@@ -127,7 +131,7 @@ public class HomeController {
 		memObj.setSubscriptionPlan(subscriptionPlan);
 		memObj.setEmail(email);
 		memObj.setAddress(address);
-		
+
 		Member addedMember = memberService.addMember(memObj);
 		request.setAttribute("member", addedMember);
 
