@@ -55,7 +55,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/searchMember")
-	public String showSearchMemberForm() {
+	public String showSearchMemberForm(HttpServletRequest request) {
+		request.setAttribute("resultsOutcome", "null");
 		return "searchMember";
 	}
 
@@ -63,12 +64,16 @@ public class HomeController {
 	public String searchMember(@ModelAttribute("member-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
 		List<Member> searchMemberResults = memberService.searchMembers(search_text);
+		request.setAttribute("memberResultList", searchMemberResults);
 
 		if (searchMemberResults.isEmpty()) {
-			return ("noMatchingMembers");
+			request.setAttribute("resultsOutcome", "false");
 		} else {
-			return ("searchMemberResults");
+			request.setAttribute("resultsOutcome", "true");
 		}
+		
+		return "searchMember";
+
 	}
 
 	@GetMapping("/searchInvoice")
@@ -87,11 +92,11 @@ public class HomeController {
 		List<Invoice> searchInvoiceResults = invoiceService.searchInvoices(search_text);
 
 		if (searchInvoiceResults.isEmpty()) {
-			return ("noMatchingInvoices");
+			request.setAttribute("resultsOutcome", "false");
 		} else {
-			return ("searchInvoiceResults");
+			request.setAttribute("resultsOutcome", "true");
 		}
-
+		return "searchMemberResults";
 	}
 
 	@GetMapping("/addMember")
@@ -133,7 +138,6 @@ public class HomeController {
 	public String showMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
 		Member member = memberService.getMemberfromID(memberId);
 		request.setAttribute("member", member);
-//		System.out.println(member)
 		return "member";
 	}
 

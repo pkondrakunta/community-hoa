@@ -83,9 +83,52 @@
             <input class="form-control w-25 me-2" type="search" placeholder="Search Member" aria-label="Search">
             <button class="btn btn-theme" type="submit">Search</button>
         </form>
-        <div id="search-results">
 
-        </div>
+        <%-- When no matching done yet --%>
+        <c:if test="${requestScope.resultsOutcome = "null"}">  
+
+        </c:if>  
+
+        <%-- For no matches --%>
+        <c:if test="${requestScope.resultsOutcome = "false"}">  
+            <p>No matching member found.<p>  
+        </c:if>  
+
+        <%-- For matching members found. --%>
+        <c:if test="${requestScope.resultsOutcome = "true"}">  
+            <table class="table table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Unit</th>
+                    <th>Unit Type</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Subscription Plan</th>
+                    <th>View</th>
+
+                </tr>
+                </thead>
+                
+                <c:forEach items="${requestScope.memberResultList}" var="mem">
+                    <tr>
+                        <td>${mem.memberID}</td>
+                        <td>${mem.firstName}</td>
+                        <td>${mem.lastName}</td>
+                        <td>${mem.address}</td>
+                        <td>${mem.unit}</td>
+                        <td>${mem.unitType}</td>
+                        <td>${mem.email}</td>
+                        <td>${mem.phone}</td>
+                        <td>${mem.subscriptionPlan}</td>
+                        <td><a href="/member/${mem.memberID}" class="btn btn-sm btn-theme">View</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>  
 
     </div>/
 
