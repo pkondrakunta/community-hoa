@@ -7,18 +7,38 @@ package com.projects.communityhoa.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Component;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
+
+@Component
+@Entity
+@Table(name = "members")
 public class Member {
-	String memberID;
-	String firstName;
-	String lastName;
-	String unit;
-	String unitType;
-	String address;
-	String email;
-	String phone;
-	String subscriptionPlan;
-	LocalDateTime subscriptionExpiry;
-	LocalDateTime lastPaid;
+	//Default annotation is Basic for type
+	@Id
+	@Column(name="member_id")
+	private String memberID;
+	@Column(name="first_name")
+	private String firstName;
+	@Column(name="last_name")
+	private String lastName;
+	private String unit;
+	@Column(name="unit_type")
+	private String unitType;
+	private String address;
+	private String email;
+	private String phone;
+	@Column(name="subscription_plan")
+	private String subscriptionPlan;
+	@Column(name="subscription_expiry")
+	private LocalDateTime subscriptionExpiry;
+	@Column(name="last_paid")
+	private LocalDateTime lastPaid;
 	
 	public String getMemberID() {
 		return memberID;
