@@ -144,5 +144,12 @@ public class HomeController {
 		request.setAttribute("member", member);
 		return "member";
 	}
+	
+	@GetMapping("/member/{memberId}/update")
+	public String showUpdateMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+		Member member = memberService.getMemberfromID(memberId);
+		request.setAttribute("member", member);
+		return "updateMember";
+	}
 
 }

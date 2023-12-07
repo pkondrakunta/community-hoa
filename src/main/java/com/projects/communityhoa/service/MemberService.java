@@ -27,6 +27,7 @@ import com.projects.communityhoa.model.Member;
 public class MemberService {
 
 	Connection conn;
+	private long creationTimeMillis;
 
 	public MemberService() {
 		try {
@@ -45,6 +46,9 @@ public class MemberService {
 		
 		Member addedMember = member;
 		String plan = member.getSubscriptionPlan();
+		
+		String memberID = generateNewMemberId(member);
+		
 		addedMember.setMemberID(null);
 		addedMember.setLastPaid(LocalDateTime.now());
 		
@@ -56,6 +60,13 @@ public class MemberService {
 		}
 
 		return addedMember;
+	}
+
+	private static String generateNewMemberId(Member member) {
+	    String creationTimeMillis_4ID = ""+System.currentTimeMillis()/1000;
+	    String initials = member.getFirstName().substring(0,1).toUpperCase().concat(member.getLastName().substring(0,1).toUpperCase());
+	    
+		return creationTimeMillis_4ID.concat(initials);
 	}
 
 	public List<Member> searchMembers(String search_text_with_wildcard) {
@@ -180,8 +191,10 @@ public class MemberService {
 //	public static void main(String[] args) {
 //		
 //		MemberService ms = new MemberService();
-//		Member m = ms.getMemberfromID("008");
+//		Member m = ms.getMemberfromID("00011");
 //		System.out.println("Here's the member ID: " + m.getFirstName());
+//		
+//	    System.out.println(generateNewMemberId(m));
 //	}
 
 }

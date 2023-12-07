@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <br />
-                    <a href="" style="margin-right: 10px;" class="btn btn-theme">Update</a> 
+                    <a href="/member/${member.memberID}/update" style="margin-right: 10px;" class="btn btn-theme">Update</a> 
                     <a href="" style="margin-left: 10px;" class="btn btn-theme">Delete</a>
 
                 </div>
