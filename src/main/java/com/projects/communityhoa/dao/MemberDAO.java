@@ -2,11 +2,11 @@ package com.projects.communityhoa.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import com.projects.communityhoa.model.Member;
 
-@Repository
+@Component
 public interface MemberDAO {
 	public void save(Member m);
 
