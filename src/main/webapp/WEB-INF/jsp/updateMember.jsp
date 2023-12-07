@@ -82,7 +82,7 @@
 
     </div>
 
-    <form method="POST" action="/update">
+    <form method="POST">
       <div class="form-group row">
         <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
         <div class="col-sm-10">

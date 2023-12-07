@@ -83,55 +83,66 @@
 
     </div>
 
+    <c:choose>
+    <c:when test="${requestScope.action == 'deleted'}">
+        <p>The member with the ID: ${requestScope.member.memberID} has been successfully ${requestScope.action}!</p>
+    </c:when>
+    <c:otherwise>
+        <p>The member with the ID: ${requestScope.member.memberID} has been successfully ${requestScope.action}!</p>
+
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-light mb-6">
-                        <div class="card-header">Member Details</div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                            
-                            ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
-                            <p class="card-text">
-                                Member ID: ${requestScope.member.memberID}<br />
-                                Address: ${requestScope.member.address}<br />
-                                Unit: ${requestScope.member.unit}<br />
-                                Unit Type: ${requestScope.member.unitType}<br />
-                                Email: ${requestScope.member.email}<br />
-                                Phone: ${requestScope.member.phone}<br />
-                            </p>
-                        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card bg-light mb-6">
+                    <div class="card-header">Member Details</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                        
+                        ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
+                        <p class="card-text">
+                            Member ID: ${requestScope.member.memberID}<br />
+                            Address: ${requestScope.member.address}<br />
+                            Unit: ${requestScope.member.unit}<br />
+                            Unit Type: ${requestScope.member.unitType}<br />
+                            Email: ${requestScope.member.email}<br />
+                            Phone: ${requestScope.member.phone}<br />
+                        </p>
                     </div>
-                    <br />
-                    <a href="" style="margin-right: 10px;" class="btn btn-theme">Update</a> 
-                    <a href="" style="margin-left: 10px;" class="btn btn-theme">Delete</a>
-
                 </div>
-                <div class="col">
-                    <div class="card bg-light mb-6">
-                        <div class="card-header">Subscription Details</div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                ${requestScope.member.subscriptionPlan}
-                            </h5>
-                            <p class="card-text">
-                                Member ID: ${requestScope.member.memberID} <br />
-                                <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
-                                Subscription expires on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_expiry }" /> <br/>
-                                <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_paid" type="both" />
-                                Last paid on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /><br/>
-                                <%-- Subscription expires on <fmt:formatLocalDateTime value="${requestScope.member.subscriptionExpiry}" pattern="MMM dd, YYYY" /><br /> --%>
-                                <%-- Last paid on <fmt:formatLocalDateTime value="${requestScope.member.lastPaid}" pattern="MMM dd, YYYY" /> <br /> --%>
-                                <br/><br/><br/>
-                            </p>
-                        </div>
+                <br />
+                <a href="" style="margin-right: 10px;" class="btn btn-theme">Update</a> 
+                <a href="" style="margin-left: 10px;" class="btn btn-theme">Delete</a>
+
+            </div>
+            <div class="col">
+                <div class="card bg-light mb-6">
+                    <div class="card-header">Subscription Details</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            ${requestScope.member.subscriptionPlan}
+                        </h5>
+                        <p class="card-text">
+                            Member ID: ${requestScope.member.memberID} <br />
+                            <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
+                            Subscription expires on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_expiry }" /> <br/>
+                            <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_paid" type="both" />
+                            Last paid on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /><br/>
+                            <%-- Subscription expires on <fmt:formatLocalDateTime value="${requestScope.member.subscriptionExpiry}" pattern="MMM dd, YYYY" /><br /> --%>
+                            <%-- Last paid on <fmt:formatLocalDateTime value="${requestScope.member.lastPaid}" pattern="MMM dd, YYYY" /> <br /> --%>
+                            <br/><br/><br/>
+                        </p>
                     </div>
-                    <br />
-                    <a href="" class="btn btn-theme">Pay</a>
-
                 </div>
+                <br />
+                <a href="" class="btn btn-theme">Pay</a>
+
             </div>
         </div>
+        </div>
+
+    </c:otherwise>
+    </c:choose>
+
 
 
 </body>

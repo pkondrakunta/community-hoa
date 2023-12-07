@@ -35,10 +35,10 @@ import com.projects.communityhoa.service.MemberService;
 public class HomeController {
 
 	@Autowired
-	InvoiceService invoiceService;
+	private InvoiceService invoiceService;
 
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 
 	@GetMapping("/login")
 	public String handleLogin() {
@@ -63,10 +63,9 @@ public class HomeController {
 	@PostMapping("/searchMember")
 	public String searchMember(@RequestParam(name = "member-search-text") @NonNull String search_text,
 			SessionStatus status, HttpServletRequest request) {
-		String search_with_wildcard = "%".concat(search_text).concat("%");
 		request.setAttribute("sText", search_text);
 
-		List<Member> searchMemberResults = memberService.searchMembers(search_with_wildcard);
+		List<Member> searchMemberResults = memberService.getSearchMembers(search_text);
 
 		if (searchMemberResults.isEmpty()) {
 			request.setAttribute("resultsOutcome", "false");
@@ -132,24 +131,57 @@ public class HomeController {
 		memObj.setEmail(email);
 		memObj.setAddress(address);
 
-		Member addedMember = memberService.addMember(memObj);
+		Member addedMember = memberService.save(memObj);
 		request.setAttribute("member", addedMember);
+		request.setAttribute("action", "added");
 
-		return "addMemberSuccess";
+		return "memberActionSuccess";
 	}
 
 	@GetMapping("/member/{memberId}")
 	public String showMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
-		Member member = memberService.getMemberfromID(memberId);
+		Member member = memberService.getMemberById(memberId);
 		request.setAttribute("member", member);
 		return "member";
 	}
 	
 	@GetMapping("/member/{memberId}/update")
 	public String showUpdateMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
-		Member member = memberService.getMemberfromID(memberId);
+		Member member = memberService.getMemberById(memberId);
 		request.setAttribute("member", member);
 		return "updateMember";
+	}
+	
+	@PostMapping("/member/{memberId}/update")
+	public String updateMemberAndShowSuccess(HttpServletRequest request,
+			@PathVariable(name = "memberId") String memberId,
+			@RequestParam(name = "inputFirstName") @NonNull String firstName,
+			@RequestParam(name = "inputLastName") @NonNull String lastName,
+			@RequestParam(name = "inputEmail") @NonNull String email,
+			@RequestParam(name = "inputPhone") @NonNull String phone,
+			@RequestParam(name = "inputAddress") @NonNull String address,
+			@RequestParam(name = "inputUnit") @NonNull String unit,
+			@RequestParam(name = "inputUnitType") @NonNull String unitType,
+			@RequestParam(name = "inputSubscriptionPlan") @NonNull String subscriptionPlan
+			) {
+		
+		Member memObj = memberService.getMemberById(memberId);
+		
+		memObj.setFirstName(firstName);
+		memObj.setLastName(lastName);
+		memObj.setUnit(unit);
+		memObj.setUnitType(unitType);
+		memObj.setPhone(phone);
+		memObj.setSubscriptionPlan(subscriptionPlan);
+		memObj.setEmail(email);
+		memObj.setAddress(address);
+
+		memberService.update(memObj);
+		request.setAttribute("member", memObj);
+		request.setAttribute("action", "updated");
+		
+		return "memberActionSuccess";
+		
 	}
 
 }

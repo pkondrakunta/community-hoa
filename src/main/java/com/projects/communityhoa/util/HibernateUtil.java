@@ -28,8 +28,10 @@ public class HibernateUtil {
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(settings).build();
 
         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
-        metadataSources.addPackage("com.csye6220.esdfinalproject.model");
-        metadataSources.addAnnotatedClasses(Member.class, Invoice.class, SubscriptionPlan.class);
+        metadataSources.addPackage("com.projects.communityhoa.model");
+        metadataSources.addAnnotatedClass(Member.class);
+        metadataSources.addAnnotatedClass(Invoice.class);
+        metadataSources.addAnnotatedClass(SubscriptionPlan.class);
 
         Metadata metadata = metadataSources.buildMetadata();
 

@@ -35,31 +35,32 @@
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
-        </dependency>
-        
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>10.1.16</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
-		    <groupId>org.hibernate.orm</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>6.3.1.Final</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.24.Final</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
