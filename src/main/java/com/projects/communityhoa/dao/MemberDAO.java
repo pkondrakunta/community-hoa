@@ -19,4 +19,5 @@ public interface MemberDAO {
 	public List<Member> getAllMembers();
 	
 	public List<Member> getSearchMembers(String search_text);
+	
 }

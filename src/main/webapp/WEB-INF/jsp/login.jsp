@@ -64,9 +64,9 @@
     <br /><br />
     <div class="authbox">
         <h2>Login</h2>
-        <form method="POST">
-            <input type="text" placeholder="Enter Username" name="uname" id="user" required /><br />
-            <input type="password" placeholder="Enter Password" name="psw" id="psw" required /><br />
+        <form method="POST" action="/auth/login">
+            <input type="text" placeholder="Enter Username" name="username" required /><br />
+            <input type="password" placeholder="Enter Password" name="password" required /><br />
             <a href="#">Forgot password?</a>
             <br /><br/>
             <button type="submit" class="btn btn-lg btn-theme">Login</button>

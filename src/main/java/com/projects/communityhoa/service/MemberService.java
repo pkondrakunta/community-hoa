@@ -21,14 +21,4 @@ public interface MemberService {
     public Member getMemberById(String Id);
     public List<Member> getAllMembers();
     public List<Member> getSearchMembers(String search_text);
-	
-//	public static void main(String[] args) {
-//		
-//		MemberService ms = new MemberService();
-//		Member m = ms.getMemberfromID("00011");
-//		System.out.println("Here's the member ID: " + m.getFirstName());
-//		
-//	    System.out.println(generateNewMemberId(m));
-//	}
-
 }

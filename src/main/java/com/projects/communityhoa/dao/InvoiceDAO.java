@@ -19,4 +19,7 @@ public interface InvoiceDAO {
 	public Invoice getInvoiceById(String Id);
 
 	public List<Invoice> getAllInvoices();
+	
+	public List<Invoice> getSearchInvoices(String search_text);
+
 }

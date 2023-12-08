@@ -2,10 +2,17 @@ package com.projects.communityhoa.model;
 
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
+@Component
+@Entity
+@Table(name = "login_credentials")
 public class User {
     @Id
     @Column(name = "username")
@@ -33,8 +40,8 @@ public class User {
 		return userType;
 	}
 
-	public void setUser_type(UserType user_type) {
-		this.userType = user_type;
+	public void setUser_type(UserType userType) {
+		this.userType = userType;
 	}
 
 	public String getPassword() {

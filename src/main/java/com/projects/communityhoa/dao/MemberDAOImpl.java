@@ -91,13 +91,6 @@ public class MemberDAOImpl implements MemberDAO {
 
 			List<Member> memberList = c.list();
 			
-//			Query q = session.createQuery("FROM Member WHERE memberID LIKE :search_text OR first_name LIKE :search_text OR last_name LIKE :search_text");
-//			q.setParameter("search_text", search_text);
-//			q.setParameter("search_text", search_text);
-//			q.setParameter("search_text", search_text);
-
-//			List<Member> memberList = q.list();
-			
 			return memberList;
 		} catch (Exception e) {
 			e.printStackTrace();

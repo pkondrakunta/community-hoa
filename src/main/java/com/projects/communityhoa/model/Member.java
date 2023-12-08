@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
-
 @Component
 @Entity
 @Table(name = "members")

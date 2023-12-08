@@ -37,7 +37,6 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-
 	@GetMapping("/members")
 	public String handleGetMembers(HttpServletRequest request) {
 		List<Member> allMembersList = memberService.getAllMembers();

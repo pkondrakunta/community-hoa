@@ -37,27 +37,35 @@ public class InvoiceController {
 	@Autowired
 	private InvoiceService invoiceService;
 
+	@GetMapping("/invoices")
+	public String handleGetInvoices(HttpServletRequest request) {
+		List<Invoice> allInvoicesList = invoiceService.getAllInvoices();
+		request.setAttribute("invoiceList", allInvoicesList);
+
+		return "invoices";
+	}
+	
 	@GetMapping("/searchInvoice")
-	public String showSearchInvoiceForm() {
+	public String showSearchInvoiceForm(HttpServletRequest request) {
+		request.setAttribute("resultsOutcome", "null");
 		return "searchInvoice";
 	}
 
-	@GetMapping("/invoices")
-	public String handleGetInvoices() {
-		return "invoices";
-	}
-
 	@PostMapping("/searchInvoice")
-	public String searchInvoice(@ModelAttribute("invoice-text") String search_text, SessionStatus status,
+	public String searchInvoice(@ModelAttribute("invoice-search-text") String search_text, SessionStatus status,
 			HttpServletRequest request) {
-		List<Invoice> searchInvoiceResults = invoiceService.searchInvoices(search_text);
+		request.setAttribute("sText", search_text);
+
+		List<Invoice> searchInvoiceResults = invoiceService.getSearchInvoices(search_text);
 
 		if (searchInvoiceResults.isEmpty()) {
 			request.setAttribute("resultsOutcome", "false");
 		} else {
 			request.setAttribute("resultsOutcome", "true");
+			request.setAttribute("invoiceResultList", searchInvoiceResults);
 		}
-		return "searchMemberResults";
+
+		return "searchMember";
 	}
 
 }

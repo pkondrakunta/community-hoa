@@ -84,10 +84,6 @@
             <button class="btn btn-theme" type="submit">Search</button>
         </form>
 
-
-        <%-- <p>${requestScope.resultsOutcome}</p> --%>
-
-
         <c:choose>
         <c:when test="${requestScope.resultsOutcome == 'false'}">
             <br/><h4>Search results for: ${requestScope.sText}</h4>

@@ -5,17 +5,38 @@
 
 package com.projects.communityhoa.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
+
+import javax.persistence.GeneratedValue;
+
+@Component
+@Entity
+@Table(name = "invoices")
 public class Invoice {
+	@Id
+	@Column(name="invoice_id")
+    @GeneratedValue
 	String invoiceID;
+	@Column(name="member_id")
 	String memberID;
-	Date date;
-	Float waterFee;
-	Float trashFee;
-	Float adminFee;
-	Float lateFee;
-	
+	@Column(name="invoice_date")
+	LocalDateTime date;
+	@Column(name="water_fee")
+	Double waterFee;
+	@Column(name="trash_fee")
+	Double trashFee;
+	@Column(name="late_fee")
+	Double lateFee;
+	@Column(name="request_fee")
+	Double additionalRequestFee;
+
 	public String getInvoiceID() {
 		return invoiceID;
 	}
@@ -28,30 +49,35 @@ public class Invoice {
 	public void setMemberID(String memberID) {
 		this.memberID = memberID;
 	}
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public Float getWaterFee() {
+	public Double getWaterFee() {
 		return waterFee;
 	}
-	public void setWaterFee(Float waterFee) {
+	public void setWaterFee(Double waterFee) {
 		this.waterFee = waterFee;
 	}
-	public Float getTrashFee() {
+	public Double getTrashFee() {
 		return trashFee;
 	}
-	public void setTrashFee(Float trashFee) {
+	public void setTrashFee(Double trashFee) {
 		this.trashFee = trashFee;
 	}
-	public Float getLateFee() {
+	public Double getLateFee() {
 		return lateFee;
 	}
-	public void setLateFee(Float lateFee) {
+	public void setLateFee(Double lateFee) {
 		this.lateFee = lateFee;
 	}
-
+	public Double getAdditionalRequestFee() {
+		return additionalRequestFee;
+	}
+	public void setAdditionalRequestFee(Double additionalRequestFee) {
+		this.additionalRequestFee = additionalRequestFee;
+	}
 
 }

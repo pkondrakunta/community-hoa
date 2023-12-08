@@ -81,15 +81,47 @@
         <h3>Community HOA</h3>
         <br /><br />
 
-        <form modelAttribute="invoice-text" name="searchInvoice" class="d-flex justify-content-center"
-            role="searchInvoice">
-            <input class="form-control w-25 me-2" type="search" placeholder="Search Invoice"
-                aria-label="Search">
+        <form action="POST" name="searchInvoice" class="d-flex justify-content-center" role="searchInvoice">
+            <input name="invoice-search-text" class="form-control w-25 me-2" type="search" placeholder="Search Invoice" aria-label="Search">
             <button class="btn btn-theme" type="submit">Search</button>
         </form>
 
-    </div>
+        <c:choose>
+        <c:when test="${requestScope.resultsOutcome == 'false'}">
+            <br/><h4>Search results for: ${requestScope.sText}</h4>
+            <br/><p>No matching invoice found.<p>  
+        </c:when>
+        <c:when test="${requestScope.resultsOutcome == 'true'}">
+            <br/><h4>Search results for: ${requestScope.sText}</h4>
+            <br/>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>Invoice ID</th>
+                    <th>Member ID</th>
+                    <th>Invoice Date</th>
+                    <th>Total</th>
+                    <th>View</th>
+                </tr>
+                </thead>
+                
+                <c:forEach items="${requestScope.invoiceResultList}" var="inv">
+                    <tr>
+                        <td>${inv.invoiceID}</td>
+                        <td>${inv.memberID}</td>
+                        <td>${inv.date}</td>
+                        <td>${inv.total}</td>
+                        <td><a target="_blank" href="/invoice/${inv.invoiceID}" class="btn btn-sm btn-theme">View</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <br/>
+        </c:otherwise>
+        </c:choose>
 
+    </div>
 
 </body>
 
