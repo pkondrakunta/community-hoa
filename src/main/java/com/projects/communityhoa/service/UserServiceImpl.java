@@ -1,6 +1,5 @@
 package com.projects.communityhoa.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,36 +10,32 @@ import com.projects.communityhoa.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserDAO userDAO;
+	@Autowired
+	private UserDAO userDAO;
 
 	@Override
 	public void save(User user) {
-		// TODO Auto-generated method stub
-		
+		this.userDAO.save(user);
 	}
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
-		
+		this.userDAO.update(user);
 	}
 
 	@Override
 	public void delete(User user) {
-		// TODO Auto-generated method stub
-		
+		this.userDAO.delete(user);
 	}
 
 	@Override
 	public User getUserByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.userDAO.getUserByUsername(username);
 	}
 
 	@Override
 	public List<User> getAllUsers() {
-        return this.userDAO.getAllUsers();
+		return this.userDAO.getAllUsers();
 	}
 
 }
