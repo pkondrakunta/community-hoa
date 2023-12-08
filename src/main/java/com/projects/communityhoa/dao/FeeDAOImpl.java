@@ -8,16 +8,15 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 import org.hibernate.query.Query;
 
-import com.projects.communityhoa.model.Member;
-import com.projects.communityhoa.model.SubscriptionPlan;
+import com.projects.communityhoa.model.Fee;
 import com.projects.communityhoa.util.HibernateUtil;
 
 @Component
-public class SubscriptionPlanDAOImpl implements SubscriptionPlanDAO {
+public class FeeDAOImpl implements FeeDAO {
 	private SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
 	@Override
-	public void save(SubscriptionPlan s) {
+	public void save(Fee s) {
 		try (Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.getTransaction();
 			transaction.begin();
@@ -29,7 +28,7 @@ public class SubscriptionPlanDAOImpl implements SubscriptionPlanDAO {
 	}
 
 	@Override
-	public void update(SubscriptionPlan s) {
+	public void update(Fee s) {
 		try (Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.getTransaction();
 			transaction.begin();
@@ -41,7 +40,7 @@ public class SubscriptionPlanDAOImpl implements SubscriptionPlanDAO {
 	}
 
 	@Override
-	public void delete(SubscriptionPlan s) {
+	public void delete(Fee s) {
 		try (Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.getTransaction();
 			transaction.begin();
@@ -53,9 +52,9 @@ public class SubscriptionPlanDAOImpl implements SubscriptionPlanDAO {
 	}
 
 	@Override
-	public SubscriptionPlan getSubscriptionPlanById(String Id) {
+	public Fee getFeeById(String Id) {
 		try (Session session = sessionFactory.openSession()) {
-			SubscriptionPlan s = session.get(SubscriptionPlan.class, Id);
+			Fee s = session.get(Fee.class, Id);
 			return s;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,11 +63,11 @@ public class SubscriptionPlanDAOImpl implements SubscriptionPlanDAO {
 	}
 
 	@Override
-	public List<SubscriptionPlan> getAllSubscriptionPlans() {
+	public List<Fee> getAllFees() {
 		try (Session session = sessionFactory.openSession()) {
-			Query q = session.createQuery("FROM SubscriptionPlan");
-			List<SubscriptionPlan> subscriptionPlanList = q.list();
-			return subscriptionPlanList;
+			Query q = session.createQuery("FROM Fee");
+			List<Fee> feeList = q.list();
+			return feeList;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

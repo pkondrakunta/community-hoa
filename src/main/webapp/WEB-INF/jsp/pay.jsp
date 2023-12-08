@@ -5,7 +5,6 @@
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype HTML>
 <html>
@@ -83,55 +82,48 @@
 
     </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-light mb-6">
-                        <div class="card-header">Member Details</div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                            
-                            ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
-                            <p class="card-text">
-                                Member ID: ${requestScope.member.memberID}<br />
-                                Address: ${requestScope.member.address}<br />
-                                Unit: ${requestScope.member.unit}<br />
-                                Unit Type: ${requestScope.member.unitType}<br />
-                                Email: ${requestScope.member.email}<br />
-                                Phone: ${requestScope.member.phone}<br />
-                            </p>
-                        </div>
-                    </div>
-                    <br />
-                    <a href="/member/${member.memberID}/update" style="margin-right: 10px;" class="btn btn-theme">Update</a> 
-                    <a href="/member/${member.memberID}/delete" onclick="return confirm('Member will be deleted. Proceed anyway?')" style="margin-left: 10px;" class="btn btn-theme">Delete</a>
-
-                </div>
-                <div class="col">
-                    <div class="card bg-light mb-6">
-                        <div class="card-header">Subscription Details</div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                ${requestScope.member.subscriptionPlan}
-                            </h5>
-                            <p class="card-text">
-                                Member ID: ${requestScope.member.memberID} <br />
-                                <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
-                                Subscription expires on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_expiry }" /> <br/>
-                                <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_paid" type="both" />
-                                Last paid on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /><br/>
-                                <%-- Subscription expires on <fmt:formatLocalDateTime value="${requestScope.member.subscriptionExpiry}" pattern="MMM dd, YYYY" /><br /> --%>
-                                <%-- Last paid on <fmt:formatLocalDateTime value="${requestScope.member.lastPaid}" pattern="MMM dd, YYYY" /> <br /> --%>
-                                <br/><br/><br/>
-                            </p>
-                        </div>
-                    </div>
-                    <br />
-                    <a href="/member/${member.memberID}/pay" class="btn btn-theme">Pay</a>
-
-                </div>
-            </div>
+    <form method="POST" action="/member/${member.memberID}/generateInvoice">
+      <div class="form-group row">
+        <h4>Water & Trash charges</h4>
+        <label for="payUntilMonth" class="col-sm-2 col-form-label">Pay until</label>
+        <div class="col-sm-10">
+          <input onkeyup="updateCheckout()" type="month" class="form-control" name="payUntilMonth">
         </div>
+      </div><br/>
+
+      Charges breakdown:
+      <div id="info-div"></div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-theme">Confirm Payment</button>
+          </div>
+        </div>
+      </form>
+
+          <script>
+
+        function updateCheckout() {
+            var divElement = document.getElementById("info-div");
+
+            //Step 2. Create the XMLHttpRequest object
+            var xmlhttprequest = new XMLHttpRequest();
+
+            //Step 3. Call the server side resource asynchronously
+            // xmlhttprequest.open(type_of_call, URL_to_make_call_to, asynchronous)
+            xmlhttprequest.open("get", "/updateFees", true);
+            xmlhttprequest.send();
+
+            //Step 4. Wait for the server response
+            xmlhttprequest.onreadystatechange = function(){
+                if(xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200){
+
+                    //Step 5. Get the responseText to manipulate the DOM element
+                    divElement.innerHTML = xmlhttprequest.responseText;
+                }
+            }
+        }
+    </script>
 
 
 </body>

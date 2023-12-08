@@ -31,7 +31,7 @@ public class HibernateUtil {
         metadataSources.addPackage("com.projects.communityhoa.model");
         metadataSources.addAnnotatedClass(Member.class);
         metadataSources.addAnnotatedClass(Invoice.class);
-        metadataSources.addAnnotatedClass(SubscriptionPlan.class);
+        metadataSources.addAnnotatedClass(Fee.class);
 
         Metadata metadata = metadataSources.buildMetadata();
 

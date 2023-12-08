@@ -160,5 +160,14 @@ public class MemberController {
 		request.setAttribute("action", "deleted");
 		return "memberActionSuccess";
 	}
+	
+	@GetMapping("/member/{memberId}/pay")
+	public String showMemberPayView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+		Member member = memberService.getMemberById(memberId);
+		request.setAttribute("member", member);
+		return "pay";
+	}
+	
+
 
 }

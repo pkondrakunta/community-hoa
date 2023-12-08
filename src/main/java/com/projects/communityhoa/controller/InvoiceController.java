@@ -67,5 +67,10 @@ public class InvoiceController {
 
 		return "searchMember";
 	}
+	
+	@PostMapping("/member/{memberId}/generateInvoice")
+	public String generateInvoice(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+		return "paymentComplete";
+	}
 
 }
