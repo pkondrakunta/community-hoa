@@ -151,5 +151,14 @@ public class MemberController {
 		return "memberActionSuccess";
 		
 	}
+	
+	@GetMapping("/member/{memberId}/delete")
+	public String updateMemberAndShowSuccess(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+		Member member = memberService.getMemberById(memberId);
+		memberService.delete(member);
+		request.setAttribute("memberID", member.getMemberID());
+		request.setAttribute("action", "deleted");
+		return "memberActionSuccess";
+	}
 
 }

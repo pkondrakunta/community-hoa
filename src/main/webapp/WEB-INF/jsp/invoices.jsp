@@ -1,7 +1,7 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
-- Date: Nov, 2023
-- Description: Search Member Page View to provide form that looks for members with matching criteria -->
+- Date: Dec, 2023
+- Description: All Invoices Page View -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
@@ -80,58 +80,30 @@
     <div class="container text-center">
         <h3>Community HOA</h3>
         <br /><br />
-
     </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-light mb-6">
-                        <div class="card-header">Member Details</div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                            
-                            ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
-                            <p class="card-text">
-                                Member ID: ${requestScope.member.memberID}<br />
-                                Address: ${requestScope.member.address}<br />
-                                Unit: ${requestScope.member.unit}<br />
-                                Unit Type: ${requestScope.member.unitType}<br />
-                                Email: ${requestScope.member.email}<br />
-                                Phone: ${requestScope.member.phone}<br />
-                            </p>
-                        </div>
-                    </div>
-                    <br />
-                    <a href="/member/${member.memberID}/update" style="margin-right: 10px;" class="btn btn-theme">Update</a> 
-                    <a href="/member/${member.memberID}/delete" onclick="return confirm('Member will be deleted. Proceed anyway?')" style="margin-left: 10px;" class="btn btn-theme">Delete</a>
-
-                </div>
-                <div class="col">
-                    <div class="card bg-light mb-6">
-                        <div class="card-header">Subscription Details</div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                ${requestScope.member.subscriptionPlan}
-                            </h5>
-                            <p class="card-text">
-                                Member ID: ${requestScope.member.memberID} <br />
-                                <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
-                                Subscription expires on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_expiry }" /> <br/>
-                                <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_paid" type="both" />
-                                Last paid on <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /><br/>
-                                <%-- Subscription expires on <fmt:formatLocalDateTime value="${requestScope.member.subscriptionExpiry}" pattern="MMM dd, YYYY" /><br /> --%>
-                                <%-- Last paid on <fmt:formatLocalDateTime value="${requestScope.member.lastPaid}" pattern="MMM dd, YYYY" /> <br /> --%>
-                                <br/><br/><br/>
-                            </p>
-                        </div>
-                    </div>
-                    <br />
-                    <a href="" class="btn btn-theme">Pay</a>
-
-                </div>
-            </div>
-        </div>
+    <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Invoice ID</th>
+            <th>Member ID</th>
+            <th>Invoice Date</th>
+            <th>Total</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        
+        <c:forEach items="${requestScope.invoiceList}" var="inv">
+            <tr>
+                <td>${inv.invoiceID}</td>
+                <td>${inv.memberID}</td>
+                <td>${inv.date}</td>
+                <td>${inv.total}</td>
+                <td><a href="/invoice/${inv.invoiceID}" class="btn btn-sm btn-theme">View</a></td>
+            </tr>
+        </c:forEach>
+      
+      </table>
 
 
 </body>

@@ -85,7 +85,7 @@
 
     <c:choose>
     <c:when test="${requestScope.action == 'deleted'}">
-        <p>The member with the ID: ${requestScope.member.memberID} has been successfully ${requestScope.action}!</p>
+        <p>The member with the ID: ${requestScope.memberID} has been successfully ${requestScope.action}!</p>
     </c:when>
     <c:otherwise>
         <p>The member with the ID: ${requestScope.member.memberID} has been successfully ${requestScope.action}!</p>

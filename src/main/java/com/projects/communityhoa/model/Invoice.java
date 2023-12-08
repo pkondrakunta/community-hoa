@@ -36,6 +36,8 @@ public class Invoice {
 	Double lateFee;
 	@Column(name="request_fee")
 	Double additionalRequestFee;
+	@Column(name="total")
+	Double total;
 
 	public String getInvoiceID() {
 		return invoiceID;
@@ -78,6 +80,12 @@ public class Invoice {
 	}
 	public void setAdditionalRequestFee(Double additionalRequestFee) {
 		this.additionalRequestFee = additionalRequestFee;
+	}
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 }
