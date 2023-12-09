@@ -21,19 +21,19 @@ import com.projects.communityhoa.model.Invoice;
 import com.projects.communityhoa.model.Member;
 
 @Component
-public class SubscriptionPlanService {
+public class FeeService {
 
 	Connection conn;
 
-	public SubscriptionPlanService() {
+	public FeeService() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/community_hoa", "csye_user",
 					"csye6220");
 		} catch (ClassNotFoundException ex) {
-			Logger.getLogger(SubscriptionPlanService.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(FeeService.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (SQLException ex) {
-			Logger.getLogger(SubscriptionPlanService.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(FeeService.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 	}
