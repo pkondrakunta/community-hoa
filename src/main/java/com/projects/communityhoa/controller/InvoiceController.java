@@ -7,6 +7,7 @@
 
 package com.projects.communityhoa.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfException;
 import com.projects.communityhoa.model.Invoice;
 import com.projects.communityhoa.model.Member;
 
@@ -27,9 +30,12 @@ import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.validation.constraints.NotNull;
 //import jakarta.validation.constraints.Size;
 //import jakarta.validation.constraints.*;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.projects.communityhoa.service.InvoiceService;
 import com.projects.communityhoa.service.MemberService;
+import com.projects.communityhoa.util.InvoicePDFExporter;
+import com.projects.communityhoa.util.MembersPDFExporter;
 
 @Controller
 public class InvoiceController {
@@ -73,4 +79,18 @@ public class InvoiceController {
 		return "paymentComplete";
 	}
 
+    @GetMapping("/invoice/{invoiceId}/export")
+    public void exportToPDF(HttpServletResponse response, @PathVariable(name = "invoiceId") String invoiceId) throws PdfException, DocumentException, IOException {
+        response.setContentType("application/pdf");
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=invoice_" + invoiceId + ".pdf";
+        response.setHeader(headerKey, headerValue);
+                 
+		Invoice invoice_to_export = invoiceService.getInvoiceById(invoiceId);
+         
+		InvoicePDFExporter exporter = new InvoicePDFExporter(invoice_to_export);
+        exporter.export(response);
+         
+    }
 }

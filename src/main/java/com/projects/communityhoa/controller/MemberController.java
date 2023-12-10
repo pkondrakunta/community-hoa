@@ -7,6 +7,7 @@
 
 package com.projects.communityhoa.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.projects.communityhoa.model.Invoice;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfException;
+import com.projects.communityhoa.model.Fee;
 import com.projects.communityhoa.model.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,15 +30,20 @@ import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.validation.constraints.NotNull;
 //import jakarta.validation.constraints.Size;
 //import jakarta.validation.constraints.*;
+import jakarta.servlet.http.HttpServletResponse;
 
-import com.projects.communityhoa.service.InvoiceService;
+import com.projects.communityhoa.service.FeeService;
 import com.projects.communityhoa.service.MemberService;
+import com.projects.communityhoa.util.MembersPDFExporter;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private FeeService feeService;
 
 	@GetMapping("/members")
 	public String handleGetMembers(HttpServletRequest request) {
@@ -110,6 +118,11 @@ public class MemberController {
 	public String showMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
 		Member member = memberService.getMemberById(memberId);
 		request.setAttribute("member", member);
+		
+		List<Fee> fee = feeService.getAllFees();
+		// Setting fees for member
+		request.setAttribute("fee", fee);
+		
 		return "member";
 	}
 	
@@ -168,6 +181,19 @@ public class MemberController {
 		return "pay";
 	}
 	
-
+    @GetMapping("/members/export")
+    public void exportToPDF(HttpServletResponse response) throws PdfException, DocumentException, IOException {
+        response.setContentType("application/pdf");
+	    String creationTimeMillis_4ID = ""+System.currentTimeMillis()/1000;
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=members_" + creationTimeMillis_4ID + ".pdf";
+        response.setHeader(headerKey, headerValue);
+                 
+		List<Member> allMembersList = memberService.getAllMembers();
+		
+		MembersPDFExporter exporter = new MembersPDFExporter(allMembersList);
+        exporter.export(response);
+    }
 
 }

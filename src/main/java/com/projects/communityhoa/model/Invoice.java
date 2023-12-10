@@ -21,22 +21,24 @@ import javax.persistence.GeneratedValue;
 @Table(name = "invoices")
 public class Invoice {
 	@Id
-	@Column(name="invoice_id")
+	@Column(name="INVOICE_ID")
     @GeneratedValue
 	String invoiceID;
-	@Column(name="member_id")
+	@Column(name="MEMBER_ID")
 	String memberID;
-	@Column(name="invoice_date")
+	@Column(name="DATE")
 	LocalDateTime date;
-	@Column(name="water_fee")
-	Double waterFee;
-	@Column(name="trash_fee")
-	Double trashFee;
-	@Column(name="late_fee")
-	Double lateFee;
-	@Column(name="request_fee")
-	Double additionalRequestFee;
-	@Column(name="total")
+	@Column(name="WATER")
+	Double water;
+	@Column(name="TRASH")
+	Double trash;	
+	@Column(name="SNOW_REMOVAL")
+	Double snowRemoval;
+	@Column(name="LAWN_MOWING")
+	Double lawnMowing;
+	@Column(name="LANDSCAPING")
+	Double landscaping;
+	@Column(name="TOTAL")
 	Double total;
 
 	public String getInvoiceID() {
@@ -57,29 +59,36 @@ public class Invoice {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public Double getWaterFee() {
-		return waterFee;
+	
+	public Double getWater() {
+		return water;
 	}
-	public void setWaterFee(Double waterFee) {
-		this.waterFee = waterFee;
+	public void setWater(Double water) {
+		this.water = water;
 	}
-	public Double getTrashFee() {
-		return trashFee;
+	public Double getTrash() {
+		return trash;
 	}
-	public void setTrashFee(Double trashFee) {
-		this.trashFee = trashFee;
+	public void setTrash(Double trash) {
+		this.trash = trash;
 	}
-	public Double getLateFee() {
-		return lateFee;
+	public Double getSnowRemoval() {
+		return snowRemoval;
 	}
-	public void setLateFee(Double lateFee) {
-		this.lateFee = lateFee;
+	public void setSnowRemoval(Double snowRemoval) {
+		this.snowRemoval = snowRemoval;
 	}
-	public Double getAdditionalRequestFee() {
-		return additionalRequestFee;
+	public Double getLawnMowing() {
+		return lawnMowing;
 	}
-	public void setAdditionalRequestFee(Double additionalRequestFee) {
-		this.additionalRequestFee = additionalRequestFee;
+	public void setLawnMowing(Double lawnMowing) {
+		this.lawnMowing = lawnMowing;
+	}
+	public Double getLandscaping() {
+		return landscaping;
+	}
+	public void setLandscaping(Double landscaping) {
+		this.landscaping = landscaping;
 	}
 	public Double getTotal() {
 		return total;
