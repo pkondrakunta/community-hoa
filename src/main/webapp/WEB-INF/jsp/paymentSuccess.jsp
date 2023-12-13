@@ -1,7 +1,7 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
 - Date: Nov, 2023
-- Description: Search Member Page View to provide form that looks for members with matching criteria -->
+- Description: Payment Success View -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
@@ -84,61 +84,8 @@
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card bg-light mb-6">
-                    <div class="card-header">Member Details</div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-
-                            ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
-                        <p class="card-text">
-                            Member ID: ${requestScope.member.memberID}<br />
-                            Address: ${requestScope.member.address}<br />
-                            Unit: ${requestScope.member.unit}<br />
-                            Unit Type: ${requestScope.member.unitType}<br />
-                            Email: ${requestScope.member.email}<br />
-                            Phone: ${requestScope.member.phone}<br />
-                        </p>
-                    </div>
-                </div>
-                <br />
-                <a href="/member/${member.memberID}/update" style="margin-right: 10px;" class="btn btn-theme">Update</a>
-                <a href="/member/${member.memberID}/delete"
-                    onclick="return confirm('Member will be deleted. Proceed anyway?')" style="margin-left: 10px;"
-                    class="btn btn-theme">Delete</a>
-
-            </div>
-            <div class="col">
-                <div class="card bg-light mb-6">
-                    <div class="card-header">Utility Subscription Details</div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            ${requestScope.member.subscriptionPlan}
-                        </h5>
-                        <p class="card-text">
-                            Member ID: ${requestScope.member.memberID} <br />
-                            Utilities include water and trash <br />
-                            <fmt:parseDate value="${requestScope.member.subscriptionExpiry}"
-                                pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
-                            Utility Subscription ends on
-                            <fmt:formatDate pattern="MMM dd, yyyy" value="${ parsedDateTime_expiry }" /> <br />
-                            <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm"
-                                var="parsedDateTime_paid" type="both" />
-                            Last payment on
-                            <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /><br />
-
-                            <br /><br />
-                        </p>
-                    </div>
-                </div>
-                <br />
-
-                <a href="/member/${member.memberID}/payUtilities" style="margin-right: 10px;" class="btn btn-theme">Pay Utilities</a>
-                <a href="/member/${member.memberID}/newRequests" style="margin-left: 10px;" class="btn btn-theme">Additional Request</a>
-
-            </div>
-        </div>
+        Your payment was successful! Your invoice ID is ${requestScope.invoice.invoiceID}.
+        <a href="/invoice/${requestScope.invoice.invoiceID}/export" class="btn btn-theme">Download Invoice</a>
     </div>
 
 

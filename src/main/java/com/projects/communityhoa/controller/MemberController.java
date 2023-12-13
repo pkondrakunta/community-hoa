@@ -8,6 +8,9 @@
 package com.projects.communityhoa.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.lowagie.text.DocumentException;
@@ -26,10 +30,6 @@ import com.projects.communityhoa.model.Fee;
 import com.projects.communityhoa.model.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.validation.constraints.Min;
-//import jakarta.validation.constraints.NotNull;
-//import jakarta.validation.constraints.Size;
-//import jakarta.validation.constraints.*;
 import jakarta.servlet.http.HttpServletResponse;
 
 import com.projects.communityhoa.service.FeeService;
@@ -41,7 +41,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private FeeService feeService;
 
@@ -118,21 +118,20 @@ public class MemberController {
 	public String showMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
 		Member member = memberService.getMemberById(memberId);
 		request.setAttribute("member", member);
-		
-		List<Fee> fee = feeService.getAllFees();
+
 		// Setting fees for member
-		request.setAttribute("fee", fee);
-		
+		List<Fee> fee = feeService.getAllFees();
+		request.setAttribute("feeList", fee);
 		return "member";
 	}
-	
+
 	@GetMapping("/member/{memberId}/update")
 	public String showUpdateMemberView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
 		Member member = memberService.getMemberById(memberId);
 		request.setAttribute("member", member);
 		return "updateMember";
 	}
-	
+
 	@PostMapping("/member/{memberId}/update")
 	public String updateMemberAndShowSuccess(HttpServletRequest request,
 			@PathVariable(name = "memberId") String memberId,
@@ -143,11 +142,10 @@ public class MemberController {
 			@RequestParam(name = "inputAddress") @NonNull String address,
 			@RequestParam(name = "inputUnit") @NonNull String unit,
 			@RequestParam(name = "inputUnitType") @NonNull String unitType,
-			@RequestParam(name = "inputSubscriptionPlan") @NonNull String subscriptionPlan
-			) {
-		
+			@RequestParam(name = "inputSubscriptionPlan") @NonNull String subscriptionPlan) {
+
 		Member memObj = memberService.getMemberById(memberId);
-		
+
 		memObj.setFirstName(firstName);
 		memObj.setLastName(lastName);
 		memObj.setUnit(unit);
@@ -160,40 +158,97 @@ public class MemberController {
 		memberService.update(memObj);
 		request.setAttribute("member", memObj);
 		request.setAttribute("action", "updated");
-		
+
 		return "memberActionSuccess";
-		
+
 	}
-	
+
 	@GetMapping("/member/{memberId}/delete")
-	public String updateMemberAndShowSuccess(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+	public String updateMemberAndShowSuccess(HttpServletRequest request,
+			@PathVariable(name = "memberId") String memberId) {
 		Member member = memberService.getMemberById(memberId);
 		memberService.delete(member);
 		request.setAttribute("memberID", member.getMemberID());
 		request.setAttribute("action", "deleted");
 		return "memberActionSuccess";
 	}
-	
-	@GetMapping("/member/{memberId}/pay")
-	public String showMemberPayView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+
+	@GetMapping("/member/{memberId}/payUtilities")
+	public String showPayUtilityView(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
 		Member member = memberService.getMemberById(memberId);
 		request.setAttribute("member", member);
-		return "pay";
+		request.setAttribute("chargesBreakdown", "false");
+		String plan = member.getSubscriptionPlan();
+		if (member.getSubscriptionPlan().equals("Annually")) {
+			List<String> yearList = generateYearlyDisplayList(member.getSubscriptionExpiry(),3);
+			request.setAttribute("yearList", yearList);
+		}
+		else {
+			List<String> monthList = generateMonthlyDisplayList(member.getSubscriptionExpiry(),12);
+			request.setAttribute("monthList", monthList);
+		}
+		
+		return "payUtilities";
+	}
+
+	private List<String> generateMonthlyDisplayList(LocalDateTime subscriptionExpiry, int months) {
+		List<String> monthlyList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, YYYY");
+        
+		for(int i=1; i<=months; i++) {
+			LocalDateTime next_month = subscriptionExpiry.plusMonths(i);
+			monthlyList.add(next_month.format(formatter));
+		}
+		return monthlyList;
 	}
 	
-    @GetMapping("/members/export")
-    public void exportToPDF(HttpServletResponse response) throws PdfException, DocumentException, IOException {
-        response.setContentType("application/pdf");
-	    String creationTimeMillis_4ID = ""+System.currentTimeMillis()/1000;
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=members_" + creationTimeMillis_4ID + ".pdf";
-        response.setHeader(headerKey, headerValue);
-                 
-		List<Member> allMembersList = memberService.getAllMembers();
+	private List<String> generateYearlyDisplayList(LocalDateTime subscriptionExpiry, int years) {
+		List<String> yearlyList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, YYYY");
+        
+		for(int i=1; i<=years; i++) {
+			LocalDateTime next_year = subscriptionExpiry.plusYears(i);
+			yearlyList.add(next_year.format(formatter));
+		}
+		return yearlyList;
+	}
+
+	@PostMapping("/member/{memberId}/payUtilitiesBreakdown")
+	public String getUtilityBreakdown(HttpServletRequest request, 
+			@PathVariable(name = "memberId") String memberId,
+			@RequestParam(name = "subscriptionNewValidity") @NonNull String subscriptionNewValidity) {
+		Member member = memberService.getMemberById(memberId);
 		
+		request.setAttribute("member", member);
+		request.setAttribute("chargesBreakdown", "true");
+		
+		
+		request.setAttribute("water", 50);
+		request.setAttribute("trash", 20);
+		request.setAttribute("total", 70);
+		request.setAttribute("subscriptionNewValidity", subscriptionNewValidity);
+
+		return "payUtilitiesBreakdown";
+	}
+	
+	public String calcWaterCharges(LocalDateTime newValidity) {		
+		return "payUtilitiesBreakdown";
+	}
+
+
+	@GetMapping("/members/export")
+	public void exportToPDF(HttpServletResponse response) throws PdfException, DocumentException, IOException {
+		response.setContentType("application/pdf");
+		String creationTimeMillis_4ID = "" + System.currentTimeMillis() / 1000;
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=members_" + creationTimeMillis_4ID + ".pdf";
+		response.setHeader(headerKey, headerValue);
+
+		List<Member> allMembersList = memberService.getAllMembers();
+
 		MembersPDFExporter exporter = new MembersPDFExporter(allMembersList);
-        exporter.export(response);
-    }
+		exporter.export(response);
+	}
 
 }

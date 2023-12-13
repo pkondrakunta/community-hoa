@@ -20,23 +20,23 @@ import javax.persistence.Column;
 public class Member {
 	//Default annotation is Basic for type
 	@Id
-	@Column(name="member_id")
+	@Column(name="MEMBER_ID")
 	private String memberID;
-	@Column(name="first_name")
+	@Column(name="FIRST")
 	private String firstName;
-	@Column(name="last_name")
+	@Column(name="LAST")
 	private String lastName;
 	private String unit;
-	@Column(name="unit_type")
+	@Column(name="UNIT_TYPE")
 	private String unitType;
 	private String address;
 	private String email;
 	private String phone;
-	@Column(name="subscription_plan")
+	@Column(name="PLAN")
 	private String subscriptionPlan;
-	@Column(name="subscription_expiry")
+	@Column(name="EXPIRY")
 	private LocalDateTime subscriptionExpiry;
-	@Column(name="last_paid")
+	@Column(name="LAST_PAID")
 	private LocalDateTime lastPaid;
 	
 	public String getMemberID() {

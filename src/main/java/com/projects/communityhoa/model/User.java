@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "login_credentials")
+@Table(name = "users")
 public class User {
     @Id
-    @Column(name = "username")
+    @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "user_type")
+    @Column(name = "TYPE")
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
     
-    @Column(name = "member_id")
+    @Column(name = "MEMBER_ID")
     private String memberID;
 
 	public String getUsername() {

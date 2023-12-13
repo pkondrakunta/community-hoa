@@ -5,6 +5,7 @@
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype HTML>
 <html>
@@ -77,54 +78,75 @@
     <br /><br /><br /><br />
 
     <div class="container text-center">
-        <h3>Community HOA</h3>
+        <h3>Community HOA</h3><br/>
+        <h4>Utilities Payment</h4>
         <br /><br />
-
     </div>
 
-    <form method="POST" action="/member/${member.memberID}/generateInvoice">
-      <div class="form-group row">
-        <h4>Water & Trash charges</h4>
-        <label for="payUntilMonth" class="col-sm-2 col-form-label">Pay until</label>
-        <div class="col-sm-10">
-          <input onkeyup="updateCheckout()" type="month" class="form-control" name="payUntilMonth">
-        </div>
-      </div><br/>
+    <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
+    Member ID <b>${requestScope.member.memberID}</b> <br/>
+    Member Name <b>${requestScope.member.firstName} ${requestScope.member.lastName}</b> <br/>
+    Utility Subscription valid till <b><fmt:formatDate value="${parsedDateTime_expiry}" pattern="MMM dd, YYYY" /></b>
+    <br/><br/>
 
-      Charges breakdown:
-      <div id="info-div"></div>
+    <form id="payUtilitiesForm" method="POST" action="/member/${member.memberID}/payUtilitiesBreakdown">
+        <div class="form-group">
+            <label class="col-sm-6">Extend validity upto</label>
+            <div class="col-sm-6">
+            <%-- Generate months/years for new validity  --%>
+            <c:choose>
+            <c:when test="${requestScope.member.subscriptionPlan == 'Monthly'}">
+                <select class="form-control" name="subscriptionNewValidity"> 
+                <c:forEach items="${requestScope.monthList}" var="month">
+                    <option class="form-select">${month}</option>
+                </c:forEach>
+                </select>
+            </c:when>
+            <c:when test="${requestScope.member.subscriptionPlan == 'Annually'}">
+                <select class="form-control" name="subscriptionNewValidity"> 
+                <c:forEach items="${requestScope.yearList}" var="year">
+                    <option class="form-select">${year}</option>
+                </c:forEach>
+                </select>
+            </c:when>
+            </c:choose>
+            </div>
+        </div><br/>
 
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <button type="submit" class="btn btn-theme">Confirm Payment</button>
-          </div>
-        </div>
-      </form>
+    </form>
 
-          <script>
+    <c:choose>
+    <c:when test="${requestScope.chargesBreakdown == 'false'}">
+        <button form="payUtilitiesForm" type="submit" class="btn btn-theme">Calculate Total</button>
 
-        function updateCheckout() {
-            var divElement = document.getElementById("info-div");
+    </c:when>
+    <c:when test="${requestScope.chargesBreakdown == 'true'}">
+        Charges breakdown:
+        <table class="table">
+            <thead style="background-color:gray;">
+                <th>Description</th>
+                <th>Charges</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Water</td>
+                <td>${requestScope.water}</td>
+            </tr>
+            <tr>
+                <td>Trash</td>
+                <td>${requestScope.trash}</td>
+            </tr>
+            <tr>
+                <td><b>Total</b></td>
+                <td><b>${requestScope.total}</b></td>
+            </tr>
+            </tbody>
+        </table> <br/><br/>
 
-            //Step 2. Create the XMLHttpRequest object
-            var xmlhttprequest = new XMLHttpRequest();
+         <button form="payUtilitiesForm" type="submit" class="btn btn-theme">Confirm Payment</button>
 
-            //Step 3. Call the server side resource asynchronously
-            // xmlhttprequest.open(type_of_call, URL_to_make_call_to, asynchronous)
-            xmlhttprequest.open("get", "/updateFees", true);
-            xmlhttprequest.send();
-
-            //Step 4. Wait for the server response
-            xmlhttprequest.onreadystatechange = function(){
-                if(xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200){
-
-                    //Step 5. Get the responseText to manipulate the DOM element
-                    divElement.innerHTML = xmlhttprequest.responseText;
-                }
-            }
-        }
-    </script>
-
+    </c:when>
+    </c:choose>
 
 </body>
 

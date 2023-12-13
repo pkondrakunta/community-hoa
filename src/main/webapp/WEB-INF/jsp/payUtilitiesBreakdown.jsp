@@ -78,69 +78,60 @@
     <br /><br /><br /><br />
 
     <div class="container text-center">
-        <h3>Community HOA</h3>
+        <h3>Community HOA</h3><br/>
+        <h4>Utilities Payment</h4>
         <br /><br />
 
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card bg-light mb-6">
-                    <div class="card-header">Member Details</div>
-                    <div class="card-body">
-                        <h5 class="card-title">
+    <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
+    Member ID <b>${requestScope.member.memberID}</b> <br/>
+    Member Name <b>${requestScope.member.firstName} ${requestScope.member.lastName}</b> <br/>
+    Utility Subscription currently valid till <b><fmt:formatDate value="${parsedDateTime_expiry}" pattern="MMM dd, YYYY" /></b>
+    <br/><br/>
 
-                            ${requestScope.member.firstName} ${requestScope.member.lastName}</h5>
-                        <p class="card-text">
-                            Member ID: ${requestScope.member.memberID}<br />
-                            Address: ${requestScope.member.address}<br />
-                            Unit: ${requestScope.member.unit}<br />
-                            Unit Type: ${requestScope.member.unitType}<br />
-                            Email: ${requestScope.member.email}<br />
-                            Phone: ${requestScope.member.phone}<br />
-                        </p>
-                    </div>
-                </div>
-                <br />
-                <a href="/member/${member.memberID}/update" style="margin-right: 10px;" class="btn btn-theme">Update</a>
-                <a href="/member/${member.memberID}/delete"
-                    onclick="return confirm('Member will be deleted. Proceed anyway?')" style="margin-left: 10px;"
-                    class="btn btn-theme">Delete</a>
+    <%-- <fmt:parseDate value="${requestScope.subscriptionNewValidity}" pattern="yyyy-MM-dd'T'HH:mm" var="newValidity" type="both" /> --%>
 
+    <form id="payUtilitiesForm" method="POST" action="/member/${member.memberID}/confirmUtilitiesPayment">
+        <div class="form-group">
+            <label class="col-sm-6">Extending validity upto</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="subscriptionNewValidityDisplay" disabled> 
+                    <option class="form-select" selected>${requestScope.subscriptionNewValidity}</option>
+                </select>
             </div>
-            <div class="col">
-                <div class="card bg-light mb-6">
-                    <div class="card-header">Utility Subscription Details</div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            ${requestScope.member.subscriptionPlan}
-                        </h5>
-                        <p class="card-text">
-                            Member ID: ${requestScope.member.memberID} <br />
-                            Utilities include water and trash <br />
-                            <fmt:parseDate value="${requestScope.member.subscriptionExpiry}"
-                                pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
-                            Utility Subscription ends on
-                            <fmt:formatDate pattern="MMM dd, yyyy" value="${ parsedDateTime_expiry }" /> <br />
-                            <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm"
-                                var="parsedDateTime_paid" type="both" />
-                            Last payment on
-                            <fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /><br />
+        </div><br/>
+        <input name="subscriptionNewValidity" type="hidden" value=${requestScope.subscriptionNewValidity}/>
+        <input name="water" type="hidden" value=${requestScope.water}/>
+        <input name="trash" type="hidden" value=${requestScope.trash}/>
+        <input name="total" type="hidden" value=${requestScope.total}/>
 
-                            <br /><br />
-                        </p>
-                    </div>
-                </div>
-                <br />
+    </form>
 
-                <a href="/member/${member.memberID}/payUtilities" style="margin-right: 10px;" class="btn btn-theme">Pay Utilities</a>
-                <a href="/member/${member.memberID}/newRequests" style="margin-left: 10px;" class="btn btn-theme">Additional Request</a>
 
-            </div>
-        </div>
-    </div>
-
+    Charges breakdown:
+    <table class="table">
+        <thead style="background-color:gray;">
+            <th>Description</th>
+            <th>Charges</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Water</td>
+            <td>${requestScope.water}</td>
+        </tr>
+        <tr>
+            <td>Trash</td>
+            <td>${requestScope.trash}</td>
+        </tr>
+        <tr>
+            <td><b>Total</b></td>
+            <td><b>${requestScope.total}</b></td>
+        </tr>
+        </tbody>
+    </table> <br/><br/>
+    <button form="payUtilitiesForm" type="submit" class="btn btn-theme" style="margin-left:10px">Confirm Payment</button>
+    <a href="/member/${member.memberID}/payUtilities" class="btn btn-secondary" style="margin-right:10px">Back</a>
 
 </body>
 

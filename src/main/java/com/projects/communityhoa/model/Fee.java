@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Table(name = "fees")
 public class Fee {
 	@Id
-	@Column(name="fee_name")
+	@Column(name="DESCRIPTION")
 	String feeName;
-	@Column(name="fee_value")
+	@Column(name="VALUE")
 	Double feeValue;
-	@Column(name="fee_type")
+	@Column(name="TYPE")
 	String feeType;
 	
 	public String getFeeName() {
