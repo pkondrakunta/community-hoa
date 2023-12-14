@@ -73,4 +73,16 @@ public class FeeDAOImpl implements FeeDAO {
 			return null;
 		}
 	}
+
+	@Override
+	public List<Fee> getAllRequestFees() {
+		try (Session session = sessionFactory.openSession()) {
+			Query q = session.createQuery("FROM Fee WHERE feeType = 'request'");
+			List<Fee> feeList = q.list();
+			return feeList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

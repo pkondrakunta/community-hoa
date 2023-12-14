@@ -21,5 +21,8 @@ public interface FeeService {
 	public Fee getFeeById(String Id);
 
 	public List<Fee> getAllFees();
+	
+	public List<Fee> getAllRequestFees();
+
 
 }

@@ -64,7 +64,7 @@
     <br /><br />
     <div class="authbox">
         <h2>Login</h2>
-        <form method="POST" action="/auth/login">
+        <form method="POST" action="/login">
             <input type="text" placeholder="Enter Username" name="username" required /><br />
             <input type="password" placeholder="Enter Password" name="password" required /><br />
             <a href="#">Forgot password?</a>
@@ -74,6 +74,8 @@
         <br/>
         <a href="/auth/signup">Not a user? Signup here.</a>
     </div>
+
+    ${requestScope.error}
 </body>
 
 </html>

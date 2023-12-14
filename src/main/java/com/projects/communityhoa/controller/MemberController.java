@@ -57,7 +57,7 @@ public class MemberController {
 		return "members";
 	}
 
-	@GetMapping("/searchMember")
+	@GetMapping({"/searchMember", "/home"})
 	public String showSearchMemberForm(HttpServletRequest request) {
 		request.setAttribute("resultsOutcome", "null");
 		return "searchMember";
@@ -243,11 +243,15 @@ public class MemberController {
 
 		return "payUtilitiesBreakdown";
 	}
-	
-	public String calcWaterCharges(LocalDateTime newValidity) {		
-		return "payUtilitiesBreakdown";
-	}
 
+	@GetMapping("/member/{memberId}/newRequests")
+	public String showNewRequests(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+		
+		List<Fee> requestsList = feeService.getAllRequestFees();
+		request.setAttribute("requestsList", requestsList);
+		
+		return "newRequests";
+	}
 
 	@GetMapping("/members/download")
 	public void exportToPDF(HttpServletResponse response) throws PdfException, DocumentException, IOException {

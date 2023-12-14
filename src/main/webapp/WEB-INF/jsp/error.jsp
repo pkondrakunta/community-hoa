@@ -57,6 +57,7 @@
                             <li><a class="dropdown-item" href="/searchMember">Search Members</a></li>
                             <li><a class="dropdown-item" href="/members">All Members</a></li>
                             <li><a class="dropdown-item" href="/addMember">Add Member</a></li>
+                            <li><a class="dropdown-item" href="/members/download">Download Members List</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

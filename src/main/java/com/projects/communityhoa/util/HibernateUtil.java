@@ -32,6 +32,8 @@ public class HibernateUtil {
         metadataSources.addAnnotatedClass(Member.class);
         metadataSources.addAnnotatedClass(Invoice.class);
         metadataSources.addAnnotatedClass(Fee.class);
+        metadataSources.addAnnotatedClass(User.class);
+        metadataSources.addAnnotatedClass(UserRole.class);
 
         Metadata metadata = metadataSources.buildMetadata();
 

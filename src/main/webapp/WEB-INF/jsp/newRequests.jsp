@@ -1,11 +1,11 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
 - Date: Dec, 2023
-- Description: All Invoices Page View -->
+- Description: New Requests Page -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype HTML>
 <html>
@@ -79,34 +79,32 @@
     <br /><br /><br /><br />
 
     <div class="container text-center">
-        <h3>Community HOA</h3>
+        <h3>Community HOA</h3><br/>
+        <h4>Additional Requests</h4>
         <br /><br />
+        <div class="col-2">
+        </div>
+        <div class="col-8 text-center">
+
+        <form method="POST" action="/member/${member.memberID}/payRequest" class="w-50 text-center">
+
+            <select class="form-select" aria-label="Select an option">
+            <c:forEach items="${requestScope.requestsList}" var="fee">
+            <option value="${fee.feeName}">${fee.feeName} ($${fee.feeValue})</option>
+            </c:forEach>
+            </select>
+            <br/>
+            <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-theme">Confirm Payment</button>
+            </div>
+            </div>
+        </form>
+        </div>
+        <div class="col-2">
+        </div>
+
     </div>
-
-    <table class="table table-striped">
-        <thead class="table-dark">
-          <tr>
-            <th>Invoice ID</th>
-            <th>Member ID</th>
-            <th>Invoice Date</th>
-            <th>Total</th>
-            <th>Download</th>
-          </tr>
-        </thead>
-        
-        <c:forEach items="${requestScope.invoiceList}" var="inv">
-            <tr>
-                <td>${inv.invoiceID}</td>
-                <td>${inv.memberID}</td>
-                <fmt:parseDate value="${inv.date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_paid" type="both" />
-                <td><fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /></td>
-                <td>${inv.total}</td>
-                <td><a href="/invoice/${inv.invoiceID}/download" class="btn btn-sm btn-theme">Download</a></td>
-            </tr>
-        </c:forEach>
-      
-      </table>
-
 
 </body>
 

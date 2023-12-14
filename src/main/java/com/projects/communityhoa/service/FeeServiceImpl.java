@@ -38,4 +38,10 @@ public class FeeServiceImpl implements FeeService {
         return this.feeDAO.getAllFees();
 	}
 
+	@Override
+	public List<Fee> getAllRequestFees() {
+		// TODO Auto-generated method stub
+		return this.feeDAO.getAllRequestFees();
+	}
+
 }

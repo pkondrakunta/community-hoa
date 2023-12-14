@@ -1,6 +1,6 @@
 package com.projects.communityhoa.model;
 
-public enum UserType {
+public enum UserRole {
     MEMBER,
     STAFF,
     ADMIN

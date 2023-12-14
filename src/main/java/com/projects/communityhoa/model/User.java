@@ -18,9 +18,9 @@ public class User {
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "TYPE")
+    @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private UserRole role;
 
     @Column(name = "PASSWORD")
     private String password;
@@ -36,12 +36,12 @@ public class User {
 		this.username = username;
 	}
 
-	public UserType getUserType() {
-		return userType;
+	public UserRole getUserType() {
+		return role;
 	}
 
-	public void setUser_type(UserType userType) {
-		this.userType = userType;
+	public void setUser_type(UserRole userType) {
+		this.role = userType;
 	}
 
 	public String getPassword() {
