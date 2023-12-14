@@ -33,7 +33,7 @@ import jakarta.servlet.http.HttpServletResponse;
 //        System.out.println("Request URI in filter: " + requestURI);
 //        if(!allowedURLs.contains(requestURI)){
 //            if(user == null){
-//                response.sendRedirect("/searchMember");
+//                response.sendRedirect("/auth/login");
 //                return;
 //            }
 //        }

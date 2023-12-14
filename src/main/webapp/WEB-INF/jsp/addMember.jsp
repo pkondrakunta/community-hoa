@@ -84,59 +84,45 @@
 
     <form method="POST" action="/addMember">
       <div class="form-group row">
-        <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
+        <label for="inputFirstName" class="col-sm-2 col-form-label" >First Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="inputFirstName" placeholder="Viola">
+          <input type="text" class="form-control" name="inputFirstName" placeholder="Viola" required>
         </div>
       </div>  <br/>
       <div class="form-group row">
-        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+        <label for="inputLastName" class="col-sm-2 col-form-label" >Last Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="inputLastName" placeholder="Davis">
+          <input type="text" class="form-control" name="inputLastName" placeholder="Davis" required>
         </div>
       </div>  <br/>
         <div class="form-group row">
-          <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+          <label for="inputEmail" class="col-sm-2 col-form-label" >Email</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" name="inputEmail" placeholder="viola.davis@gmail.com">
+            <input type="email" class="form-control" name="inputEmail" placeholder="viola.davis@gmail.com" required>
           </div>
         </div>  <br/>
         <div class="form-group row">
-          <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
+          <label for="inputPhone" class="col-sm-2 col-form-label" required>Phone</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" name="inputPhone" placeholder="6173733499">
           </div>
         </div>  <br/>
-        <!-- <div class="form-group row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-          </div>
-        </div><br/>
-        
         <div class="form-group row">
-          <label for="inputPasswordConfirm" class="col-sm-2 col-form-label">Confirm Password</label>
+          <label for="inputAddress" class="col-sm-2 col-form-label" >Address</label>
           <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPasswordConfirm" placeholder="Confirm Password">
-          </div>
-        </div><br/> -->
-
-        <div class="form-group row">
-          <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputAddress" placeholder="1234 Main Street">
+            <input type="text" class="form-control" name="inputAddress" placeholder="1234 Main Street" required>
           </div>
         </div>  <br/>
 
         <div class="form-group row">
-          <label for="inputUnit" class="col-sm-2 col-form-label">Unit</label>
+          <label for="inputUnit" class="col-sm-2 col-form-label" >Unit</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputUnit" placeholder="1A">
+            <input type="text" class="form-control" name="inputUnit" placeholder="1A" required>
           </div>
         </div>  <br/>
         <fieldset class="form-group">
           <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Unit Type</legend>
+            <legend class="col-form-label col-sm-2 pt-0" >Unit Type</legend>
             <div class="col-sm-10">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="inputUnitType" id="gridRadios1" value="Apartment" checked>
@@ -168,7 +154,7 @@
 
         <fieldset class="form-group">
           <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Subscription Plan</legend>
+            <legend class="col-form-label col-sm-2 pt-0" required>Subscription Plan</legend>
             <div class="col-sm-10">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="inputSubscriptionPlan" id="gridRadios1" value="Annually" checked>
@@ -190,7 +176,7 @@
           <div class="col-sm-2">Confirmation</div>
           <div class="col-sm-10">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1">
+              <input onclick="handleDisable(this)" class="form-check-input" type="checkbox" id="gridCheck1">
               <label class="form-check-label" for="gridCheck1">
                 You will be signing up for Community HOA. You will be charged for the selected subscription period.
               </label>
@@ -200,11 +186,16 @@
 
         <div class="form-group row">
           <div class="col-sm-10">
-            <button type="submit" class="btn btn-theme">Add Member</button>
+            <button id="addMemberSubmit" disabled type="submit" class="btn btn-theme">Add Member</button>
           </div>
         </div>
       </form>
 
+<script>
+    function handleDisable(elm) {
+        document.getElementById('addMemberSubmit').disabled = !elm.checked;
+    }
+</script>
 
 </body>
 
