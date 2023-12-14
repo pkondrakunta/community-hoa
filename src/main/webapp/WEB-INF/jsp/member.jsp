@@ -81,6 +81,12 @@
                             <li><a class="dropdown-item" href="/adminSignup">Signup an admin</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allFees" role="button">Fees</a>
+                    </li>
+                    <li class="nav-item me-auto">
+                        <a class="nav-link" href="/logout" role="button">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
