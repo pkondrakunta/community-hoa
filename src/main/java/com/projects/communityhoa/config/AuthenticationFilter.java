@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Order(1)
 public class AuthenticationFilter implements Filter {
 
-    private static List<String> allowedURLs = List.of("/", "/login", "/logout", "/signup");
+    private static List<String> allowedURLs = List.of("/", "/login", "/logout", "/signup", "/adminSignup");
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -34,6 +34,7 @@ public class AuthenticationFilter implements Filter {
         User user = (User) request.getSession().getAttribute("user");
         String requestURI = request.getRequestURI();
         if(!allowedURLs.contains(requestURI)){
+        	
             if(user == null){
                 response.sendRedirect("/login");
                 return;

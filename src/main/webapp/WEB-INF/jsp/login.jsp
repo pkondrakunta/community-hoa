@@ -1,7 +1,7 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
 - Date: Dec, 2023
-- Description: Authentication Page View to login, signup and reset password -->
+- Description: Authentication Page View to login -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
@@ -62,6 +62,15 @@
     <br /><br /><br /><br />
     <h3>Community HOA</h3>
     <br /><br />
+
+    <c:choose>
+    <c:when test="${requestScope.signup == 'true'}">
+        <p>You have signed up successfully! Please login to continue.</p>
+    </c:when>
+    <c:otherwise>
+    </c:otherwise>
+    </c:choose>
+
     <div class="authbox">
         <h2>Login</h2>
         <form method="POST" action="/login">

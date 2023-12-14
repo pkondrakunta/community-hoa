@@ -53,8 +53,14 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>10.1.16</version>
 		</dependency>
+		
+		<!-- Validation Constraints Dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 
-		<!-- Security Dependency for BCryptPasswordEncoder -->
+		<!-- Security Dependency - Spring Boot Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>

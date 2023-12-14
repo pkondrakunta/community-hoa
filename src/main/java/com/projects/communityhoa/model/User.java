@@ -36,12 +36,12 @@ public class User {
 		this.username = username;
 	}
 
-	public UserRole getUserType() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setUser_type(UserRole userType) {
-		this.role = userType;
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
 	public String getPassword() {

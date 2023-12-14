@@ -1,7 +1,7 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
 - Date: Dec, 2023
-- Description: Authentication Page View to login, signup and reset password -->
+- Description: Authentication Page View for Admin Signups -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
@@ -63,42 +63,16 @@
     <h3>Community HOA</h3>
     <br /><br />
     <div class="authbox">
-        <h2>Signup</h2>
-        <form method="POST" action="/signup">
-            <input type="text" placeholder="Enter Member ID" name="memberID" required /><br />
-            <input type="text" placeholder="Enter Username" name="uname"  required /><br />
+        <h2>Admin Signup</h2>
+        <form method="POST" action="/adminSignup">
+            <input type="text" placeholder="Enter Username" name="username"  required /><br />
             <input type="password" placeholder="Enter Password" name="psw" required /><br />
-            <input type="password" placeholder="Confirm Password" onkeyup="validate_password()" name="con-psw" required /><br />
-
-            <span id="not_matching"></span>
+            <input type="password" placeholder="Confirm Password" name="con-psw" required /><br />
             <br />
             <button type="submit" class="btn btn-lg btn-theme">Signup</button>
         </form>
         <br/>
         <a href="/login">Already a user? Login here.</a>
     </div>
-
-    <script>
-            function validate_password() {
- 
-            var pass = document.getElementByName('psw').value;
-            var confirm_pass = document.getElementByName('con-psw').value;
-            if (pass != confirm_pass) {
-                document.getElementById('not_matching').style.color = 'red';
-                document.getElementById('not_matching').innerHTML
-                    = '☒ Use same password';
-                document.getElementById('create').disabled = true;
-                document.getElementById('create').style.opacity = (0.4);
-            } else {
-                document.getElementById('not_matching').style.color = 'green';
-                document.getElementById('not_matching').innerHTML =
-                    '🗹 Password Matched';
-                document.getElementById('create').disabled = false;
-                document.getElementById('create').style.opacity = (1);
-            }
-        }
-
-    </script>
-
 </body>
 </html>

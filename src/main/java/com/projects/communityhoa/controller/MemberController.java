@@ -57,7 +57,7 @@ public class MemberController {
 		return "members";
 	}
 
-	@GetMapping({"/searchMember", "/home"})
+	@GetMapping("/searchMember")
 	public String showSearchMemberForm(HttpServletRequest request) {
 		request.setAttribute("resultsOutcome", "null");
 		return "searchMember";
