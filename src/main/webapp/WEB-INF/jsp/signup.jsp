@@ -64,7 +64,7 @@
     <br /><br />
     <div class="authbox">
         <h2>Signup</h2>
-        <form method="POST">
+        <form method="POST" action="/signup">
             <input type="text" placeholder="Enter Member ID" name="memberID" required /><br />
             <input type="text" placeholder="Enter Username" name="uname"  required /><br />
             <input type="password" placeholder="Enter Password" name="psw" required /><br />
@@ -73,7 +73,7 @@
             <button type="submit" class="btn btn-lg btn-theme">Signup</button>
         </form>
         <br/>
-        <a href="/auth/login">Already a user? Login here.</a>
+        <a href="/login">Already a user? Login here.</a>
     </div>
 </body>
 </html>

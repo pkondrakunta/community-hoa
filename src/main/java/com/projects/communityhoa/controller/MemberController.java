@@ -246,12 +246,14 @@ public class MemberController {
 
 	@GetMapping("/member/{memberId}/newRequests")
 	public String showNewRequests(HttpServletRequest request, @PathVariable(name = "memberId") String memberId) {
+		Member member = memberService.getMemberById(memberId);
 		
+		request.setAttribute("member", member);
 		List<Fee> requestsList = feeService.getAllRequestFees();
 		request.setAttribute("requestsList", requestsList);
 		
 		return "newRequests";
-	}
+	}	
 
 	@GetMapping("/members/download")
 	public void exportToPDF(HttpServletResponse response) throws PdfException, DocumentException, IOException {

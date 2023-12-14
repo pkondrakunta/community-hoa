@@ -67,12 +67,11 @@
         <form method="POST" action="/login">
             <input type="text" placeholder="Enter Username" name="username" required /><br />
             <input type="password" placeholder="Enter Password" name="password" required /><br />
-            <a href="#">Forgot password?</a>
             <br /><br/>
             <button type="submit" class="btn btn-lg btn-theme">Login</button>
         </form>
         <br/>
-        <a href="/auth/signup">Not a user? Signup here.</a>
+        <a href="/signup">Not a user? Signup here.</a>
     </div>
 
     ${requestScope.error}

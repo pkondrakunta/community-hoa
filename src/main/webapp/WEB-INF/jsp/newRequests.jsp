@@ -88,7 +88,7 @@
 
         <form method="POST" action="/member/${member.memberID}/payRequest" class="w-50 text-center">
 
-            <select class="form-select" aria-label="Select an option">
+            <select name="feeName" class="form-select" aria-label="Select an option">
             <c:forEach items="${requestScope.requestsList}" var="fee">
             <option value="${fee.feeName}">${fee.feeName} ($${fee.feeValue})</option>
             </c:forEach>

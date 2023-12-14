@@ -35,6 +35,7 @@ import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.validation.constraints.*;
 import jakarta.servlet.http.HttpServletResponse;
 
+import com.projects.communityhoa.service.FeeService;
 import com.projects.communityhoa.service.InvoiceService;
 import com.projects.communityhoa.service.MemberService;
 import com.projects.communityhoa.util.InvoicePDFExporter;
@@ -48,6 +49,9 @@ public class InvoiceController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private FeeService feeService;
 
 	@GetMapping("/invoices")
 	public String handleGetInvoices(HttpServletRequest request) {
@@ -83,38 +87,90 @@ public class InvoiceController {
 	@PostMapping("/member/{memberId}/confirmUtilitiesPayment")
 	public String confirmUtilitiesPayment(HttpServletRequest request, @PathVariable(name = "memberId") String memberId,
 			@RequestParam(name = "subscriptionNewValidity") @NonNull String subscriptionNewValidity,
-			@RequestParam(name = "water") @NonNull String water,
-			@RequestParam(name = "trash") @NonNull String trash,
+			@RequestParam(name = "water") @NonNull String water, @RequestParam(name = "trash") @NonNull String trash,
 			@RequestParam(name = "total") @NonNull String total) {
 
 		Invoice invoiceObj = new Invoice();
 		LocalDateTime ldt = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy"); 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
 		LocalDate newExpiry = LocalDate.parse(subscriptionNewValidity, formatter);
-		
+
 		invoiceObj.setMemberID(memberId);
 		invoiceObj.setDate(ldt);
 		invoiceObj.setLandscaping(0.0);
 		invoiceObj.setLawnMowing(0.0);
 		invoiceObj.setSnowRemoval(0.0);
-		invoiceObj.setLandscaping(0.0);
 		invoiceObj.setWater(Double.parseDouble(water));
 		invoiceObj.setTrash(Double.parseDouble(trash));
 		invoiceObj.setTotal(Double.parseDouble(total));
 		invoiceObj.setNewExpiry(newExpiry);
 
 		Invoice createdInvoice = invoiceService.save(invoiceObj);
-		
-		//Update member table with latest subscription details
-		
+
+		// Update member table with latest subscription details
+
 		Member member = memberService.getMemberById(memberId);
 		member.setLastPaid(ldt);
 		member.setSubscriptionExpiry(newExpiry);
-		
+
 		memberService.update(member);
-		
+
 		request.setAttribute("invoice", createdInvoice);
 		request.setAttribute("payment_type", "utilities");
+
+		return "paymentSuccess";
+	}
+
+	@PostMapping("/member/{memberId}/payRequest")
+	public String confirmUtilitiesPayment(HttpServletRequest request, 
+			@PathVariable(name = "memberId") String memberId,
+			@RequestParam(name = "feeName") @NonNull String feeName) {
+
+		Invoice invoiceObj = new Invoice();
+		LocalDateTime ldt = LocalDateTime.now();
+
+		
+		invoiceObj.setMemberID(memberId);
+		invoiceObj.setDate(ldt);
+		
+		switch(feeName) {
+		  case "Lawn Mowing":
+				invoiceObj.setLawnMowing(feeService.getFeeById("Lawn Mowing").getFeeValue());
+				invoiceObj.setSnowRemoval(0.0);
+				invoiceObj.setLandscaping(0.0);
+				invoiceObj.setTotal(feeService.getFeeById("Law Mowing").getFeeValue());
+
+		    break;
+		  case "Landscaping":
+				invoiceObj.setLandscaping(feeService.getFeeById("Landscaping").getFeeValue());
+				invoiceObj.setSnowRemoval(0.0);
+				invoiceObj.setLawnMowing(0.0);
+				invoiceObj.setTotal(feeService.getFeeById("Landscaping").getFeeValue());
+
+		    break;
+		    
+		  case "Snow Removal":
+				invoiceObj.setSnowRemoval(feeService.getFeeById("Snow Removal").getFeeValue());
+				invoiceObj.setLandscaping(0.0);
+				invoiceObj.setLawnMowing(0.0);
+				invoiceObj.setTotal(feeService.getFeeById("Snow Removal").getFeeValue());
+
+
+		    break;
+		    
+		  default:
+				invoiceObj.setLandscaping(0.0);
+				invoiceObj.setLawnMowing(0.0);
+				invoiceObj.setSnowRemoval(0.0);
+		}
+		
+		invoiceObj.setWater(0.0);
+		invoiceObj.setTrash(0.0);
+
+		Invoice createdInvoice = invoiceService.save(invoiceObj);
+
+		request.setAttribute("invoice", createdInvoice);
+		request.setAttribute("payment_type", "requests");
 
 		return "paymentSuccess";
 	}
