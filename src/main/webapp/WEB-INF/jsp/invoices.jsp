@@ -89,7 +89,7 @@
             <th>Member ID</th>
             <th>Invoice Date</th>
             <th>Total</th>
-            <th>View</th>
+            <th>Download</th>
           </tr>
         </thead>
         
@@ -97,9 +97,10 @@
             <tr>
                 <td>${inv.invoiceID}</td>
                 <td>${inv.memberID}</td>
-                <td>${inv.date}</td>
+                <fmt:parseDate value="${inv.date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_paid" type="both" />
+                <td><fmt:formatDate pattern="MMM dd, yyyy HH:mm" value="${ parsedDateTime_paid }" /></td>
                 <td>${inv.total}</td>
-                <td><a href="/invoice/${inv.invoiceID}" class="btn btn-sm btn-theme">View</a></td>
+                <td><a href="/invoice/${inv.invoiceID}/download" class="btn btn-sm btn-theme">Download</a></td>
             </tr>
         </c:forEach>
       

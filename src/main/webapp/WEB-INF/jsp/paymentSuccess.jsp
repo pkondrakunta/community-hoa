@@ -84,7 +84,7 @@
     </div>
 
     <div class="container">
-        Your payment was successful! Your invoice ID is ${requestScope.invoice.invoiceID}.
+        Your payment was successful! Your invoice ID is ${requestScope.invoice.invoiceID}. <br/>
         <a href="/invoice/${requestScope.invoice.invoiceID}/export" class="btn btn-theme">Download Invoice</a>
     </div>
 

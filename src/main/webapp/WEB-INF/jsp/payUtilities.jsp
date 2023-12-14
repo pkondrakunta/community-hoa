@@ -83,10 +83,10 @@
         <br /><br />
     </div>
 
-    <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
+    <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd" var="parsedDate_expiry" type="date" />
     Member ID <b>${requestScope.member.memberID}</b> <br/>
     Member Name <b>${requestScope.member.firstName} ${requestScope.member.lastName}</b> <br/>
-    Utility Subscription valid till <b><fmt:formatDate value="${parsedDateTime_expiry}" pattern="MMM dd, YYYY" /></b>
+    Utility Subscription valid till <b><fmt:formatDate value="${parsedDate_expiry}" pattern="MMM dd, YYYY" /></b>
     <br/><br/>
 
     <form id="payUtilitiesForm" method="POST" action="/member/${member.memberID}/payUtilitiesBreakdown">

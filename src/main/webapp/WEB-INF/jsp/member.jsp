@@ -120,9 +120,9 @@
                             Member ID: ${requestScope.member.memberID} <br />
                             Utilities include water and trash <br />
                             <fmt:parseDate value="${requestScope.member.subscriptionExpiry}"
-                                pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
+                                pattern="yyyy-MM-dd" var="parsedDate_expiry" type="date" />
                             Utility Subscription ends on
-                            <fmt:formatDate pattern="MMM dd, yyyy" value="${ parsedDateTime_expiry }" /> <br />
+                            <fmt:formatDate pattern="MMM dd, yyyy" value="${ parsedDate_expiry }" /> <br />
                             <fmt:parseDate value="${requestScope.member.lastPaid}" pattern="yyyy-MM-dd'T'HH:mm"
                                 var="parsedDateTime_paid" type="both" />
                             Last payment on

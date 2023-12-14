@@ -8,7 +8,9 @@
 package com.projects.communityhoa.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfException;
 import com.projects.communityhoa.model.Invoice;
+import com.projects.communityhoa.model.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.validation.constraints.Min;
@@ -42,6 +45,9 @@ public class InvoiceController {
 
 	@Autowired
 	private InvoiceService invoiceService;
+
+	@Autowired
+	private MemberService memberService;
 
 	@GetMapping("/invoices")
 	public String handleGetInvoices(HttpServletRequest request) {
@@ -81,31 +87,39 @@ public class InvoiceController {
 			@RequestParam(name = "trash") @NonNull String trash,
 			@RequestParam(name = "total") @NonNull String total) {
 
-		Invoice invoice = new Invoice();
+		Invoice invoiceObj = new Invoice();
 		LocalDateTime ldt = LocalDateTime.now();
-
-		invoice.setMemberID(memberId);
-		invoice.setDate(ldt.now());
-		invoice.setLandscaping(0.0);
-		invoice.setLawnMowing(0.0);
-		invoice.setSnowRemoval(0.0);
-		invoice.setLandscaping(0.0);
-
-		invoice.setWater(Double.parseDouble(water));
-		invoice.setTrash(Double.parseDouble(trash));
-
-		invoice.setTotal(Double.parseDouble(total));
-
-		System.out.print(invoice);
-		invoiceService.save(invoice);
-		request.setAttribute("invoice", invoice);
-		request.setAttribute("payment_type", "utilities");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy"); 
+		LocalDate newExpiry = LocalDate.parse(subscriptionNewValidity, formatter);
 		
+		invoiceObj.setMemberID(memberId);
+		invoiceObj.setDate(ldt);
+		invoiceObj.setLandscaping(0.0);
+		invoiceObj.setLawnMowing(0.0);
+		invoiceObj.setSnowRemoval(0.0);
+		invoiceObj.setLandscaping(0.0);
+		invoiceObj.setWater(Double.parseDouble(water));
+		invoiceObj.setTrash(Double.parseDouble(trash));
+		invoiceObj.setTotal(Double.parseDouble(total));
+		invoiceObj.setNewExpiry(newExpiry);
+
+		Invoice createdInvoice = invoiceService.save(invoiceObj);
+		
+		//Update member table with latest subscription details
+		
+		Member member = memberService.getMemberById(memberId);
+		member.setLastPaid(ldt);
+		member.setSubscriptionExpiry(newExpiry);
+		
+		memberService.update(member);
+		
+		request.setAttribute("invoice", createdInvoice);
+		request.setAttribute("payment_type", "utilities");
 
 		return "paymentSuccess";
 	}
 
-	@GetMapping("/invoice/{invoiceId}/export")
+	@GetMapping("/invoice/{invoiceId}/download")
 	public void exportToPDF(HttpServletResponse response, @PathVariable(name = "invoiceId") String invoiceId)
 			throws PdfException, DocumentException, IOException {
 		response.setContentType("application/pdf");

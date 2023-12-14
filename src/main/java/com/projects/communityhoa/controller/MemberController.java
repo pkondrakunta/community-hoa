@@ -9,7 +9,11 @@ package com.projects.communityhoa.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,23 +195,23 @@ public class MemberController {
 		return "payUtilities";
 	}
 
-	private List<String> generateMonthlyDisplayList(LocalDateTime subscriptionExpiry, int months) {
+	private List<String> generateMonthlyDisplayList(LocalDate subscriptionExpiry, int months) {
 		List<String> monthlyList = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, YYYY");
         
 		for(int i=1; i<=months; i++) {
-			LocalDateTime next_month = subscriptionExpiry.plusMonths(i);
+			LocalDate next_month = subscriptionExpiry.plusMonths(i);
 			monthlyList.add(next_month.format(formatter));
 		}
 		return monthlyList;
 	}
 	
-	private List<String> generateYearlyDisplayList(LocalDateTime subscriptionExpiry, int years) {
+	private List<String> generateYearlyDisplayList(LocalDate subscriptionExpiry, int years) {
 		List<String> yearlyList = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, YYYY");
         
 		for(int i=1; i<=years; i++) {
-			LocalDateTime next_year = subscriptionExpiry.plusYears(i);
+			LocalDate next_year = subscriptionExpiry.plusYears(i);
 			yearlyList.add(next_year.format(formatter));
 		}
 		return yearlyList;
@@ -222,10 +226,19 @@ public class MemberController {
 		request.setAttribute("member", member);
 		request.setAttribute("chargesBreakdown", "true");
 		
+		LocalDate from = member.getSubscriptionExpiry();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy"); 
+		LocalDate to = LocalDate.parse(subscriptionNewValidity, formatter);
+				
+		long months_to_charge = ChronoUnit.MONTHS.between(from, to);
 		
-		request.setAttribute("water", 50);
-		request.setAttribute("trash", 20);
-		request.setAttribute("total", 70);
+		request.setAttribute("months", months_to_charge);
+		request.setAttribute("water_monthly", feeService.getFeeById("Water").getFeeValue());
+		request.setAttribute("trash_monthly", feeService.getFeeById("Trash").getFeeValue());
+		request.setAttribute("water_total", feeService.getFeeById("Water").getFeeValue() * months_to_charge);
+		request.setAttribute("trash_total", feeService.getFeeById("Trash").getFeeValue() * months_to_charge);
+		request.setAttribute("total", (feeService.getFeeById("Trash").getFeeValue() * months_to_charge) + (feeService.getFeeById("Water").getFeeValue() * months_to_charge));
 		request.setAttribute("subscriptionNewValidity", subscriptionNewValidity);
 
 		return "payUtilitiesBreakdown";
@@ -236,7 +249,7 @@ public class MemberController {
 	}
 
 
-	@GetMapping("/members/export")
+	@GetMapping("/members/download")
 	public void exportToPDF(HttpServletResponse response) throws PdfException, DocumentException, IOException {
 		response.setContentType("application/pdf");
 		String creationTimeMillis_4ID = "" + System.currentTimeMillis() / 1000;

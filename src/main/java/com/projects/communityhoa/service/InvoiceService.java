@@ -13,7 +13,7 @@ import com.projects.communityhoa.model.Invoice;
 
 @Component
 public interface InvoiceService {
-	public void save(Invoice invoice);
+	public Invoice save(Invoice invoice);
 
 	// No updates can be made to an invoice. A new transaction has to be created
 	// public void update(Invoice invoice);

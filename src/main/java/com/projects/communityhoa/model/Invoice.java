@@ -5,6 +5,7 @@
 
 package com.projects.communityhoa.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,6 @@ import javax.persistence.GeneratedValue;
 public class Invoice {
 	@Id
 	@Column(name="INVOICE_ID")
-    @GeneratedValue
 	String invoiceID;
 	@Column(name="MEMBER_ID")
 	String memberID;
@@ -40,7 +41,9 @@ public class Invoice {
 	Double landscaping;
 	@Column(name="TOTAL")
 	Double total;
-
+	@Column(name="NEW_EXPIRY")
+	LocalDate newExpiry;
+	
 	public String getInvoiceID() {
 		return invoiceID;
 	}
@@ -96,5 +99,12 @@ public class Invoice {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
+	public LocalDate getNewExpiry() {
+		return newExpiry;
+	}
+	public void setNewExpiry(LocalDate newExpiry) {
+		this.newExpiry = newExpiry;
+	}
+	
 
 }

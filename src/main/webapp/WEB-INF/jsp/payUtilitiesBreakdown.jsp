@@ -84,10 +84,11 @@
 
     </div>
 
-    <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime_expiry" type="both" />
+    <fmt:parseDate value="${requestScope.member.subscriptionExpiry}" pattern="yyyy-MM-dd" var="parsedDate_expiry" type="date" />
     Member ID <b>${requestScope.member.memberID}</b> <br/>
     Member Name <b>${requestScope.member.firstName} ${requestScope.member.lastName}</b> <br/>
-    Utility Subscription currently valid till <b><fmt:formatDate value="${parsedDateTime_expiry}" pattern="MMM dd, YYYY" /></b>
+    Utility Subscription currently valid till
+    <b><fmt:formatDate value="${parsedDate_expiry}" pattern="MMM dd, YYYY" /></b>
     <br/><br/>
 
     <%-- <fmt:parseDate value="${requestScope.subscriptionNewValidity}" pattern="yyyy-MM-dd'T'HH:mm" var="newValidity" type="both" /> --%>
@@ -101,10 +102,10 @@
                 </select>
             </div>
         </div><br/>
-        <input name="subscriptionNewValidity" type="hidden" value=${requestScope.subscriptionNewValidity}/>
-        <input name="water" type="hidden" value=${requestScope.water}/>
-        <input name="trash" type="hidden" value=${requestScope.trash}/>
-        <input name="total" type="hidden" value=${requestScope.total}/>
+        <input name="subscriptionNewValidity" type="hidden" value="${requestScope.subscriptionNewValidity}"/>
+        <input name="water" type="hidden" value="${requestScope.water_total}"/>
+        <input name="trash" type="hidden" value="${requestScope.trash_total}"/>
+        <input name="total" type="hidden" value="${requestScope.total}"/>
 
     </form>
 
@@ -113,19 +114,28 @@
     <table class="table">
         <thead style="background-color:gray;">
             <th>Description</th>
+            <th>Monthly unit price</th>
+            <th>Quantity</th>
             <th>Charges</th>
         </thead>
         <tbody>
         <tr>
             <td>Water</td>
-            <td>${requestScope.water}</td>
+            <td>${requestScope.water_monthly}</td>
+            <td>${requestScope.months}</td>
+            <td>${requestScope.water_total}</td>
+
         </tr>
         <tr>
             <td>Trash</td>
-            <td>${requestScope.trash}</td>
+            <td>${requestScope.trash_monthly}</td>
+            <td>${requestScope.months}</td>
+            <td>${requestScope.trash_total}</td>
         </tr>
         <tr>
             <td><b>Total</b></td>
+            <td></td>
+            <td></td>
             <td><b>${requestScope.total}</b></td>
         </tr>
         </tbody>

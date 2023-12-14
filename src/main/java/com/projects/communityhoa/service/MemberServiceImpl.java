@@ -1,5 +1,6 @@
 package com.projects.communityhoa.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,17 +19,15 @@ public class MemberServiceImpl implements MemberService {
 	public Member save(Member member) {
 		
 		String plan = member.getSubscriptionPlan();
-		
-		String memberID = generateNewMemberId(member);
-		
-		member.setMemberID(memberID);
+				
+		member.setMemberID(generateNewMemberId(member));
 		member.setLastPaid(LocalDateTime.now());
 		
 		if (plan == "Annually"){
-			member.setSubscriptionExpiry(LocalDateTime.now().plusYears(1));
+			member.setSubscriptionExpiry(LocalDate.now().plusYears(1));
 		}
 		else {
-			member.setSubscriptionExpiry(LocalDateTime.now().plusMonths(1));
+			member.setSubscriptionExpiry(LocalDate.now().plusMonths(1));
 		}
 
         this.memberDAO.save(member);

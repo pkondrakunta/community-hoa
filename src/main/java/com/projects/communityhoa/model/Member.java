@@ -5,6 +5,7 @@
 
 package com.projects.communityhoa.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class Member {
 	@Column(name="PLAN")
 	private String subscriptionPlan;
 	@Column(name="EXPIRY")
-	private LocalDateTime subscriptionExpiry;
+	private LocalDate subscriptionExpiry;
 	@Column(name="LAST_PAID")
 	private LocalDateTime lastPaid;
 	
@@ -82,10 +83,10 @@ public class Member {
 	public void setSubscriptionPlan(String subscriptionPlan) {
 		this.subscriptionPlan = subscriptionPlan;
 	}
-	public LocalDateTime getSubscriptionExpiry() {
+	public LocalDate getSubscriptionExpiry() {
 		return subscriptionExpiry;
 	}
-	public void setSubscriptionExpiry(LocalDateTime subscriptionExpiry) {
+	public void setSubscriptionExpiry(LocalDate subscriptionExpiry) {
 		this.subscriptionExpiry = subscriptionExpiry;
 	}
 	public LocalDateTime getLastPaid() {
