@@ -1,7 +1,7 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
-- Date: Nov, 2023
-- Description: Search Member Page View to provide form that looks for members with matching criteria -->
+- Date: Dec, 2023
+- Description: Fees Page View -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
@@ -70,6 +70,7 @@
                             <li><a class="dropdown-item" href="/invoices">All Invoices</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -79,12 +80,6 @@
                             <li><a class="dropdown-item" href="/users">All Users</a></li>
                             <li><a class="dropdown-item" href="/adminSignup">Signup an admin</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/allFees" role="button">Fees</a>
-                    </li>
-                    <li class="nav-item me-auto">
-                        <a class="nav-link" href="/logout" role="button">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -96,58 +91,27 @@
     <div class="container text-center">
         <h3>Community HOA</h3>
         <br /><br />
-        <form method="POST" name="searchMember" class="d-flex justify-content-center" role="searchMember">
-            <input  name="member-search-text" class="form-control w-25 me-2" type="search" placeholder="Search Member" aria-label="Search">
-            <button class="btn btn-theme" type="submit">Search</button>
-        </form>
-
-        <c:choose>
-        <c:when test="${requestScope.resultsOutcome == 'false'}">
-            <br/><h4>Search results for: ${requestScope.sText}</h4>
-            <br/><p>No matching member found.<p>  
-        </c:when>
-        <c:when test="${requestScope.resultsOutcome == 'true'}">
-            <br/><h4>Search results for: ${requestScope.sText}</h4>
-            <br/>
-            <table class="table table-striped">
-                <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Address</th>
-                    <th>Unit</th>
-                    <th>Unit Type</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Subscription Plan</th>
-                    <th>View</th>
-
-                </tr>
-                </thead>
-                
-                <c:forEach items="${requestScope.memberResultList}" var="mem">
-                    <tr>
-                        <td>${mem.memberID}</td>
-                        <td>${mem.firstName}</td>
-                        <td>${mem.lastName}</td>
-                        <td>${mem.address}</td>
-                        <td>${mem.unit}</td>
-                        <td>${mem.unitType}</td>
-                        <td>${mem.email}</td>
-                        <td>${mem.phone}</td>
-                        <td>${mem.subscriptionPlan}</td>
-                        <td><a href="/member/${mem.memberID}" class="btn btn-sm btn-theme">View</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:when>
-        <c:otherwise>
-            <br/>
-        </c:otherwise>
-        </c:choose>
-
     </div>
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Fee Name</th>
+            <th>Fee Type</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        
+        <c:forEach items="${requestScope.feeList}" var="fee">
+            <tr>
+                <td>${fee.feeName}</td>
+                <td>${fee.feeType}</td>
+                <td>${fee.feeValue}</td>
+            </tr>
+        </c:forEach>
+      
+      </table>
+
 
 </body>
 

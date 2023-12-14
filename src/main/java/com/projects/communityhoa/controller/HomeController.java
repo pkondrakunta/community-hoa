@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.projects.communityhoa.model.Fee;
 import com.projects.communityhoa.model.Member;
 import com.projects.communityhoa.model.User;
 import com.projects.communityhoa.model.UserRole;
+import com.projects.communityhoa.service.FeeService;
 import com.projects.communityhoa.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +34,9 @@ public class HomeController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	private FeeService feeService;
 
 	@GetMapping({ "/", "/auth", "/login*" })
 	public String redirectToLogin() {
@@ -57,14 +62,14 @@ public class HomeController {
 
 		if (user == null) {
 			request.setAttribute("error", "invalid-username");
-			return "redirect:/login";
+			return "/login";
 		} else {
 			if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
 				request.getSession().setAttribute("user", user);
 				return "redirect:/home";
 			} else {
 				request.setAttribute("error", "invalid-password");
-				return "redirect:/login";
+				return "/login";
 			}
 		}
 	}
@@ -124,7 +129,14 @@ public class HomeController {
 		request.setAttribute("userList", allUsersList);
 		return "users";
 	}
-
+	
+	@GetMapping("/allFees")
+	public String handleGetFees(HttpServletRequest request) {
+		List<Fee> allFeesList = feeService.getAllFees();
+		request.setAttribute("feeList", allFeesList);
+		return "fees";
+	}
+	
 	@GetMapping("/error")
 	public String showErrorPage() {
 		return "error";
