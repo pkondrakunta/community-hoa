@@ -77,7 +77,7 @@ public class InvoiceController {
 			request.setAttribute("invoiceResultList", searchInvoiceResults);
 		}
 
-		return "searchMember";
+		return "searchInvoice";
 	}
 
 	@PostMapping("/member/{memberId}/confirmUtilitiesPayment")
