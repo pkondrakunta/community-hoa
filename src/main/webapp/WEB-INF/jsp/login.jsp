@@ -71,6 +71,7 @@
     </c:otherwise>
     </c:choose>
 
+    <p style="color:red">${requestScope.error}<p>
     <div class="authbox">
         <h2>Login</h2>
         <form method="POST" action="/login">
@@ -83,7 +84,7 @@
         <a href="/signup">Not a user? Signup here.</a>
     </div>
 
-    ${requestScope.error}
+
 </body>
 
 </html>
