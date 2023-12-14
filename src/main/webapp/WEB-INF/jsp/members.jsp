@@ -1,7 +1,7 @@
 <!-- 
 - Author(s): Pragnya Kondrakunta 
 - Date: Nov, 2023
-- Description: Search Member Page View to provide form that looks for members with matching criteria -->
+- Description: All Members Page -->
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c"    uri="http://java.sun.com/jsp/jstl/core"%>
@@ -69,6 +69,16 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/searchInvoice">Search Invoices</a></li>
                             <li><a class="dropdown-item" href="/invoices">All Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Users
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/users">All Users</a></li>
+                            <li><a class="dropdown-item" href="/adminSignup">Signup an admin</a></li>
                         </ul>
                     </li>
                 </ul>

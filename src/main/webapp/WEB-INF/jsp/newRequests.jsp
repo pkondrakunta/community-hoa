@@ -71,6 +71,17 @@
                             <li><a class="dropdown-item" href="/invoices">All Invoices</a></li>
                         </ul>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Users
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/users">All Users</a></li>
+                            <li><a class="dropdown-item" href="/adminSignup">Signup an admin</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
